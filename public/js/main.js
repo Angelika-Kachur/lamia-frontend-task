@@ -1,7 +1,7 @@
 "use strict";
 
-
-//Render All Places
+//Variables
+let xhr = new XMLHttpRequest();
 const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let elemForm = doc.querySelector('#places__form-holder');
@@ -9,6 +9,7 @@ let btnAddPlace = doc.querySelector('.btn--add-place');
 let btnEditPlace = doc.querySelector('#btn--add-place');
 let getBtn = doc.querySelector('#get-button');
 
+//Render All Places
 function renderPlaces(places) {
     elemPlaces.innerHTML = '';
     for (let place of places) {
@@ -29,7 +30,6 @@ function renderPlaces(places) {
         elemPlaces.appendChild(li);
     };
 }
-// renderPlaces();
 
 //Create Adding Form
 function createAddingForm() {
@@ -57,8 +57,8 @@ function createAddingForm() {
     form.innerHTML = `<input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
-                        <input name="open-hours-start" type="text" placeholder="${place.openHours} - start" class="input place__open-hours-start">
-                        <input name="open-hours-end" type="text" placeholder="${place.openHours} - end" class="input place__open-hours-end">
+                        <input name="hoursStart" type="text" placeholder="${place.openHours} - start" class="input place__hoursStart">
+                        <input name="hoursEnd" type="text" placeholder="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input name="lat" type="text" placeholder="${place.location}" class="input place__lat">
@@ -79,8 +79,8 @@ function createEditingForm(index, places) {
     form.innerHTML = `<input type="text" placeholder="${place.title}" class="input                          place__title">
                     <textarea type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
-                        <input type="text" placeholder="${place.openHours} - start" class="input place__open-hours-start">
-                        <input type="text" placeholder="${place.openHours} - end" class="input place__open-hours-end">
+                        <input type="text" placeholder="${place.openHours} - start" class="input place__hoursStart">
+                        <input type="text" placeholder="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input type="text" placeholder="${place.location}" class="input place__lat">
@@ -96,8 +96,8 @@ function createNewPlace() {
     let form = doc.querySelector('.places__form');
     let title = form.querySelector('.place__title').value;
     let description = form.querySelector('.place__description').value;
-    let hoursStart = form.querySelector('.place__open-hours-start').value;
-    let hoursEnd = form.querySelector('.place__open-hours-end').value;
+    let hoursStart = form.querySelector('.place__hoursStart').value;
+    let hoursEnd = form.querySelector('.place__hoursEnd').value;
     let lat = form.querySelector('.place__lat').value;
     let lng = form.querySelector('.place__lng').value;
 
@@ -140,78 +140,51 @@ doc.addEventListener('click', function() {
 // }
 // doc.addEventListener('click', deleteSpecificPlace);
 
-// Edit Specefic Place
-// function editSpecificPlace(e) {
-//     console.log('Edit Specific Place');
-//     event.preventDefault();
-//     if (event.target.classList.contains('btn--edit-place')) {
-//         let specificPlace = event.target.parentElement;
-//         let specificPlaceId = specificPlace.getAttribute('data-placeid');
-//         let elemEditPlaceBox = specificPlace.querySelector('.edit-place__box');
-//         places[specificPlaceId].title = 'New Title';
-//         places[specificPlaceId].description = 'New Description';
-//         places[specificPlaceId].openHours = [10, 11];
-//         places[specificPlaceId].location = [10.000, 11.000];
-//         places[specificPlaceId].online = true;
-//         places[specificPlaceId].keyWords =  ['sushi','fish'];
-//         renderPlaces();
-//         testSend();
-//     }
-// }
-// doc.addEventListener('click', editSpecificPlace);
-
 // Edit Specific Place
-function editSpecificPlace() {
+function saveEditedPlace() {
     console.log('Edit Specific Place');
     event.preventDefault();
-    let form = doc.querySelector('.places__form');
-    let title = form.querySelector('.place__title').value;
-    let description = form.querySelector('.place__description').value;
-    let hoursStart = form.querySelector('.place__open-hours-start').value;
-    let hoursEnd = form.querySelector('.place__open-hours-end').value;
-    let lat = form.querySelector('.place__lat').value;
-    let lng = form.querySelector('.place__lng').value;
-    places[0] = {
-    }
-    renderPlaces();
+    // let form = doc.querySelector('.places__form');
+    // let title = form.querySelector('.place__title').value;
+    // let description = form.querySelector('.place__description').value;
+    // let hoursStart = form.querySelector('.place__hoursStart').value;
+    // let hoursEnd = form.querySelector('.place__hoursEnd').value;
+    // let lat = form.querySelector('.place__lat').value;
+    // let lng = form.querySelector('.place__lng').value;
+    // places[0] = {
+    // }
+    // renderPlaces();
 }
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--save-edit-place')) {
-        editSpecificPlace();
+        saveEditedPlace();
     }
 });
 
-let xhr = new XMLHttpRequest();
 
 //GET all Places to render on the page
-function getPlace() {
+function getPlaces() {
     xhr.open('GET', '/places');
     xhr.responseType = 'json';
     xhr.send();
-    console.log('get');
-    console.log(xhr.response)
 
     xhr.onload = function() {
-        // alert(`Загружено: ${xhr.status} ${xhr.response}`);
         let responseObj = xhr.response;
-        console.log(xhr.response);
         renderPlaces(responseObj.places);
     };
 }
-getBtn.addEventListener('click', getPlace)
+getPlaces();
+getBtn.addEventListener('click', getPlaces)
 
 //GET Specific Place to edit it
 function getSpecificPlace(placeId) {
     xhr.open('GET', '/place');
     xhr.responseType = 'json';
     xhr.send();
-    console.log('get');
-    console.log(xhr.response)
+    console.log('Get specific place: ', placeId)
 
     xhr.onload = function() {
-        // alert(`Загружено: ${xhr.status} ${xhr.response}`);
         let responseObj = xhr.response;
-        console.log(xhr.response);
         createEditingForm(placeId, responseObj.places)
     };
 }
@@ -221,14 +194,13 @@ function putSpecificPlace(placeId) {
     xhr.open('PUT', '/place');
     xhr.responseType = 'json';
     xhr.send();
-    console.log('put');
-    console.log(xhr.response)
 
     xhr.onload = function() {
         let responseObj = xhr.response;
-        console.log(xhr.response);
         // createEditingForm(placeId, responseObj.places)
     };
+
+    getPlaces();
 }
 
 //POST New Place to Places

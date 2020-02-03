@@ -91,9 +91,10 @@ app.put('/place', function(req, res) {
 
 //POST New Place to Places
 app.post('/place', function (req, res) {
+  console.log(req.body);
   let title = req.body.title;
   let description = req.body.title;
-  let openHours = [req.body.open-hours-start, req.body.open-hours-end];
+  let openHours = [req.body.hoursStart, req.body.hoursEnd];
   let location = [req.body.lat, req.body.lng];
   let keyWords = ['pizza'];
   currentId++;
