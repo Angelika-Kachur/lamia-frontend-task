@@ -16,7 +16,7 @@ function renderPlaces(places) {
         let li = doc.createElement('li');
         li.setAttribute('data-placeid', place.id);
         li.classList.add('place');
-        li.innerHTML = `<div class="place__box>
+        li.innerHTML = `<div class="place__box is-deleted-${place.isDeleted}" data-isdeleted="${place.isDeleted}">
                             <div class="place__name">${place.title}</div>
                             <div class="place__description">${place.description}</div>
                             <div class="place__location">${place.location}</div>
@@ -76,14 +76,14 @@ function createEditingForm(index, places) {
     form.setAttribute('action', '#');
     form.setAttribute('data-placeId', place);
     form.classList.add('places__form');
-    form.innerHTML = `<input type="text" placeholder="${place.title}" class="input                          place__title">
-                    <textarea type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
+    form.innerHTML = `<input type="text" value="${place.title}" class="input                          place__title">
+                    <textarea type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input type="text" placeholder="${place.openHours} - start" class="input place__hoursStart">
-                        <input type="text" placeholder="${place.openHours} - end" class="input place__hoursEnd">
+                        <input type="text" value="${place.openHours} - start" class="input place__hoursStart">
+                        <input type="text" value="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
-                        <input type="text" placeholder="${place.location}" class="input place__lat">
+                        <input type="text" value="${place.location}" class="input place__lat">
                         <input type="text" placeholder="${place.location}" class="input place__lng">
                     </div>
                     <button id="place__edit" class="btn btn--save-edit-place">Save editing place</button>`;
@@ -93,17 +93,9 @@ function createEditingForm(index, places) {
 //Add New Place
 function createNewPlace() {
     event.preventDefault();
-    let form = doc.querySelector('.places__form');
-    let title = form.querySelector('.place__title').value;
-    let description = form.querySelector('.place__description').value;
-    let hoursStart = form.querySelector('.place__hoursStart').value;
-    let hoursEnd = form.querySelector('.place__hoursEnd').value;
-    let lat = form.querySelector('.place__lat').value;
-    let lng = form.querySelector('.place__lng').value;
-
+    console.log('createNewPlace');
     postPlace();
-    
-    // renderPlaces();
+    // renderPlaces(places);
 }
 
 //Create Editing Form on Btn Click
@@ -125,49 +117,28 @@ doc.addEventListener('click', function() {
     }
 });
 
-// btnSaveAddedPlace.addEventListener('click', createNewPlace, false);
-
-//Delete Specefic Place
-// function deleteSpecificPlace(e) {
-//     console.log('Delete Specific Place');
-//     event.preventDefault();
-//     if (event.target.classList.contains('btn--delete-place')) {
-//         let specificPlace = event.target.parentElement;
-//         let specificPlaceId = specificPlace.getAttribute('data-placeid');
-//         places.splice(specificPlaceId, 1); //remove place from array places
-//         renderPlaces();
-//     }
-// }
-// doc.addEventListener('click', deleteSpecificPlace);
-
 // Edit Specific Place
-function saveEditedPlace() {
-    console.log('Edit Specific Place');
+function saveEditedPlace(placeId) {
     event.preventDefault();
-    // let form = doc.querySelector('.places__form');
-    // let title = form.querySelector('.place__title').value;
-    // let description = form.querySelector('.place__description').value;
-    // let hoursStart = form.querySelector('.place__hoursStart').value;
-    // let hoursEnd = form.querySelector('.place__hoursEnd').value;
-    // let lat = form.querySelector('.place__lat').value;
-    // let lng = form.querySelector('.place__lng').value;
-    // places[0] = {
-    // }
+    console.log('Edit Specific Place');
+    console.log('placeId ', placeId)
+
+
     // renderPlaces();
 }
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--save-edit-place')) {
-        saveEditedPlace();
+        let specificPlace = event.target.parentElement;
+        let placeId = specificPlace.getAttribute('data-placeid');
+        putSpecificPlace(placeId);
     }
 });
-
 
 //GET all Places to render on the page
 function getPlaces() {
     xhr.open('GET', '/places');
     xhr.responseType = 'json';
     xhr.send();
-
     xhr.onload = function() {
         let responseObj = xhr.response;
         renderPlaces(responseObj.places);
@@ -182,7 +153,6 @@ function getSpecificPlace(placeId) {
     xhr.responseType = 'json';
     xhr.send();
     console.log('Get specific place: ', placeId)
-
     xhr.onload = function() {
         let responseObj = xhr.response;
         createEditingForm(placeId, responseObj.places)
@@ -194,12 +164,12 @@ function putSpecificPlace(placeId) {
     xhr.open('PUT', '/place');
     xhr.responseType = 'json';
     xhr.send();
-
+    saveEditedPlace(placeId)
     xhr.onload = function() {
         let responseObj = xhr.response;
-        // createEditingForm(placeId, responseObj.places)
+        saveEditedPlace(placeId)
+        console.log('responseObj ', responseObj);
     };
-
     getPlaces();
 }
 
@@ -209,16 +179,6 @@ function postPlace() {
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
     let json = JSON.stringify(object);
-    // fetch('/place', {
-    //     method: 'post',
-    //     body: json
-    // }).then(function(res) {
-    //     return res.text();
-    // }).then(function(text) {
-    //     console.log(text)
-    // }).catch(function(error) {
-    //     console.log(error)
-    // })
     xhr.open('POST', '/place');
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);

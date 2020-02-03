@@ -6,8 +6,7 @@ let port = 3000
 //Places Data
 let placesJson = require("./data.json");
 let places = placesJson.places;
-
-console.log(places);
+// console.log(places);
 
 let currentId = 3;
 
@@ -23,16 +22,21 @@ app.use(function(req, res, next) {
 //GET All Places to render on the page
 app.get('/places', function(req, res) {
   res.send({places: places});
+  console.log('Succesfully GET all!');
 });
 
 //GET Specific Place to edit it
 app.get('/place', function(req, res) {
   res.send({places: places});
+  console.log('Succesfully GET specific!');
 });
 
 //PUT Specific Place to save it after editing
 app.put('/place', function(req, res) {
   res.send({places: places});
+  console.log(req.body);
+  console.log(res.body);
+  console.log('Succesfully updated product!');
 });
 
 //POST New Place to Places

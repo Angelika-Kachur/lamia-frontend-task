@@ -150,4 +150,8 @@ a:hover {
   display: none;
 }
 
+[data-isdeleted=true] {
+  background: red;
+}
+
 /*# sourceMappingURL=main.css.map */

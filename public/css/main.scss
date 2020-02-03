@@ -151,3 +151,7 @@ a:hover {
 .edit-place__box {
 	display: none;
 }
+
+[data-isdeleted="true"] {
+	background: red;
+}
