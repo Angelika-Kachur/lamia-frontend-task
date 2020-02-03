@@ -20,7 +20,6 @@ function renderPlaces(places) {
         li.innerHTML = `<div class="place__box">
                             <div class="place__name">${place.title}</div>
                             <div class="place__description">${place.description}</div>
-                            <div class="place__location">${place.location}</div>
                             <div class="place__openHours">${place.openHours}</div>
                             <div class="place__keywords">${place.keyWords}</div> 
                             <div class="place__btns">

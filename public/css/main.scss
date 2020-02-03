@@ -35,48 +35,26 @@ a:hover {
 	margin: 0 0 25px;
 }
 
-/* Table Phones */
-#table_phones {
-	font-size: 14px;
-}
-
-#table_phones th, 
-#table_phones td {
-	padding: 10px;
-}
-
-#table_phones th:first-child, 
-#table_phones td:first-child {
-	width: 50%;
-}
-
-#table_phones th {
-	background: #1b4845;
-	color: #fff;
-	font-size: 20px;
-	padding: 0;
-}
-
-#table_phones td {
-	background: #fff8dc;
-}
-
-#table_phones a {
-	display: block;
-	padding: 10px;
-	color: #fff;
-	transition: background ease .5s;
-}
-
-#table_phones a:hover {
-	background: #01201e;
+.wrapper {
+	display: flex;
+	display: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	background: #ccc; 
 }
 
 #map {
-	height: 500px;
+	height: 80vh;
+}
+
+.map {
+	width: 75%;
 }
 
 .places {
+	width: 25%;
+    height: 80vh;
+    overflow: auto;
 
 	&__form {
 		max-width: 500px;
@@ -113,9 +91,10 @@ a:hover {
 	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
+	flex-direction: column-reverse;
 
 	.place {
-		width: 33.3%;
+		width: 100%;
 		margin: 0 0 15px;
 
 		&__name {
@@ -227,15 +206,56 @@ a:hover {
 		bottom: 0;
 	}
 
-	.places__form {
-		padding: 10px;
-	}
-
 	.places__form-modal {
 		background: #fff;
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
+		border: solid 1px #000;
+	}
+
+	.places__form {
+		padding: 10px;
+	}
+
+	.close-popup {
+		position: absolute;
+		cursor: pointer;
+		top: -30px;
+		right: -30px;
+		padding: 5px;
+		background: rgba(0, 0, 0, .4);
+		border-radius: 50px;
+		border: solid 1px #000;
+
+		width: 25px;
+		height: 25px;
+		background-color: red;
+		border: 1px solid black;
+
+		&:before {
+			content: "";
+			display: block;
+			height: 20px;
+			width: 2px;
+			background-color: black;
+			transform: rotate(45deg);
+			position: absolute;
+			top: 2px;
+			left: 10px;
+		}
+		
+		&:after {
+			content: "";
+			display: block;
+			height: 20px;
+			width: 2px;
+			background-color: black;
+			transform: rotate(-45deg);
+			position: absolute;
+			top: 2px;
+			left: 10px;
+		}
 	}
 }

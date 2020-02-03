@@ -13,17 +13,18 @@
 </head>
 
 <body>
+	<div class="wrapper">
+		<div class="map">
+			<h2>Map</h2>
+			<input class="map__search" id="search" type="text" placeholder="Search..." />
+			<div id="map"></div>
+		</div>
 
-	<div class="map">
-		<h2>Map</h2>
-		<input class="map__search" id="search" type="text" placeholder="Search..." />
-		<div id="map"></div>
-	</div>
-
-	<div class="places">
-		<h2>All places</h2>
-		<button id="btn--add-place" class="btn btn--add-place">Add new place</button>
-		<ul id="places__list"></ul>
+		<div class="places">
+			<h2>All places</h2>
+			<button id="btn--add-place" class="btn btn--add-place">Add new place</button>
+			<ul id="places__list"></ul>
+		</div>
 	</div>
 
 	<!-- Google Maps scripts. -->
@@ -33,8 +34,7 @@
 
 	<div class="popup">
 		<div class="places__form-modal">
-			<h2>Modal</h2>
-			<button class="close-popup">Close Popup</button>
+			<button class="close-popup"></button>
 			<div id="places__form-holder">
 		</div>
 	</div>
