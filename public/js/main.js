@@ -5,6 +5,8 @@ let xhr = new XMLHttpRequest();
 const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let elemForm = doc.querySelector('#places__form-holder');
+let elemPopup = doc.querySelector('.popup');
+let btnClosePopup = doc.querySelector('.close-popup');
 let btnAddPlace = doc.querySelector('.btn--add-place');
 let btnGetPlaces = doc.querySelector('#get-button');
 
@@ -58,8 +60,8 @@ function createAddingForm() {
     form.innerHTML = `<input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="text" placeholder="${place.openHours} - start" class="input place__hoursStart">
-                        <input name="hoursEnd" type="text" placeholder="${place.openHours} - end" class="input place__hoursEnd">
+                        <input name="hoursStart" type="number" min="1" max="24" placeholder="${place.openHours} - start" class="input place__hoursStart">
+                        <input name="hoursEnd" type="number" min="1" max="24" placeholder="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input name="lat" type="text" placeholder="${place.location}" class="input place__lat">
@@ -81,8 +83,8 @@ function createEditingForm(index, places) {
     form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input                          place__title">
                     <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="text" value="${place.openHours} - start" class="input place__hoursStart">
-                        <input name="hoursEnd" type="text" value="${place.openHours} - end" class="input place__hoursEnd">
+                        <input name="hoursStart" type="number" min="1" max="24" value="${place.openHours} - start" class="input place__hoursStart">
+                        <input name="hoursEnd" type="number" min="1" max="24" value="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input name="lat" type="text" value="${place.location}" class="input place__lat">
@@ -202,12 +204,16 @@ function deleteSpecificPlace(placeId) {
 
 
 //Create 'Adding Form' on Btn Click
-btnAddPlace.addEventListener('click', createAddingForm);
+btnAddPlace.addEventListener('click', function() {
+    createAddingForm()
+    showPopup()
+});
 
 //Create New Place and Send it to the Server
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--save-added-place')) {
         createNewPlace();
+        hidePopup();
     }
 });
 
@@ -217,6 +223,7 @@ elemPlaces.addEventListener('click', function() {
         let specificPlace = event.target.closest('.place');
         let placeId = specificPlace.getAttribute('data-placeid');
         getSpecificPlace(placeId);
+        showPopup();
     }
 });
 
@@ -227,6 +234,7 @@ doc.addEventListener('click', function() {
         let placeId = specificPlace.getAttribute('data-placeid');
         console.log('You clicked on save edeted btn');
         putSpecificPlace(placeId);
+        hidePopup();
     }
 });
 
@@ -241,3 +249,16 @@ doc.addEventListener('click', function() {
 });
 
 btnGetPlaces.addEventListener('click', getPlaces);
+
+// elemPopup
+function showPopup() {
+    elemPopup.classList.add('popup--open');
+}
+
+function hidePopup() {
+    elemPopup.classList.remove('popup--open');
+}
+
+btnClosePopup.addEventListener('click', function() {
+    hidePopup();
+});
