@@ -33,11 +33,17 @@ app.get('/place', function(req, res) {
 
 //PUT Specific Place to save it after editing
 app.put('/place', function(req, res) {
-  // res.send({places: places});
+  let newPlace = {
+    id: req.body.placeId,
+    title: req.body.title,
+    description: req.body.description,
+    openHours: [req.body.hoursStart, req.body.hoursEnd],
+    location: [req.body.lat, req.body.lng],
+    online: false,
+    keyWords: ['pizza']
+  }
+  places[req.body.placeId] = newPlace;
   res.send({places: places});
-  console.log(req.body);
-  console.log(res.body);
-  console.log('Succesfully updated product!');
 });
 
 //POST New Place to Places
@@ -45,7 +51,7 @@ app.post('/place', function (req, res) {
   let newPlace = {
     id: currentId++,
     title: req.body.title,
-    description: req.body.title,
+    description: req.body.description,
     openHours: [req.body.hoursStart, req.body.hoursEnd],
     location: [req.body.lat, req.body.lng],
     online: false,
@@ -53,27 +59,23 @@ app.post('/place', function (req, res) {
   }
   places.push(newPlace);
   res.send({places: places});
-  return res.end('done')
 })
 
 //DELETE Specific Place to Places
-app.delete('/place', function (req, res) {
-  console.log(req.body);
-
-  let newPlace = {
-    id: currentId++,
-    title: title,
-    description: description,
-    openHours: openHours,
-    location: location,
-    online: false,
-    keyWords: keyWords
-  }
-
-  places.push(newPlace);
+app.delete('/place/:id', function (req, res) {
+  let id = req.params.id;
+  console.log(id)
+  places[id].isDeleted = true;
   res.send({places: places});
-  return res.end('done')
 })
+
+// app.get('/placed', function (req, res) {
+
+//   let id = req.query.id;
+//   console.log(id)
+//   places[id].isDeleted = true;
+//   res.send({places: places});
+// })
 
 app.listen(port, function () {
   console.log('We are listening on port ' + port)

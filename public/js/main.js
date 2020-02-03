@@ -6,11 +6,15 @@ const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let elemForm = doc.querySelector('#places__form-holder');
 let btnAddPlace = doc.querySelector('.btn--add-place');
+let btnGetPlaces = doc.querySelector('#get-button');
+
 
 //Render All Places
 function renderPlaces(places) {
     elemPlaces.innerHTML = '';
     for (let place of places) {
+        // console.log(place)
+    
         let li = doc.createElement('li');
         li.setAttribute('data-placeid', place.id);
         li.classList.add('place');
@@ -47,8 +51,7 @@ function createAddingForm() {
 
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
-    form.setAttribute('action', '/create-post');
-    form.setAttribute('data-placeId', place);
+    form.setAttribute('data-placeId', -1);
     form.setAttribute('name', 'addingForm');
     form.setAttribute('action', 'POST');
     form.classList.add('places__form');
@@ -62,7 +65,7 @@ function createAddingForm() {
                         <input name="lat" type="text" placeholder="${place.location}" class="input place__lat">
                         <input name="lng" type="text" placeholder="${place.location}" class="input place__lng">
                     </div>
-                    <button class="btn btn--save-edited-place">Save adding place</button>`;
+                    <button class="btn btn--save-added-place">Save adding place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -71,21 +74,21 @@ function createEditingForm(index, places) {
     let place = places[index];
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
-    form.setAttribute('action', '#');
+    form.setAttribute('data-placeId', place.id);
     form.setAttribute('name', 'editingForm');
-    form.setAttribute('data-placeId', place);
+    form.setAttribute('action', 'POST');
     form.classList.add('places__form');
-    form.innerHTML = `<input type="text" value="${place.title}" class="input                          place__title">
-                    <textarea type="text" class="textarea place__description">${place.description}</textarea>
+    form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input                          place__title">
+                    <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input type="text" value="${place.openHours} - start" class="input place__hoursStart">
-                        <input type="text" value="${place.openHours} - end" class="input place__hoursEnd">
+                        <input name="hoursStart" type="text" value="${place.openHours} - start" class="input place__hoursStart">
+                        <input name="hoursEnd" type="text" value="${place.openHours} - end" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
-                        <input type="text" value="${place.location}" class="input place__lat">
-                        <input type="text" value="${place.location}" class="input place__lng">
+                        <input name="lat" type="text" value="${place.location}" class="input place__lat">
+                        <input name="lng" type="text" value="${place.location}" class="input place__lng">
                     </div>
-                    <button id="place__edit" class="btn btn--save-edit-place">Save editing place</button>`;
+                    <button type="button" class="btn btn--save-edited-place">Save editing place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -99,7 +102,7 @@ function createNewPlace() {
 
 //Edit Specific Place
 function saveEditedPlace(places, placeId) {
-    event.preventDefault();
+    // event.preventDefault();
     console.log('Edit Specific Place');
     console.log('placeId ', placeId)
     console.log('Specific Edeted Place ', places[placeId])
@@ -127,7 +130,7 @@ getPlaces();
 
 //POST New Place to Places
 function postPlace() {
-    let formData = new FormData(document.forms.addingForm)
+    let formData = new FormData(document.forms.addingForm);
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
     let json = JSON.stringify(object);
@@ -142,7 +145,6 @@ function getSpecificPlace(placeId) {
     xhr.open('GET', '/place');
     xhr.responseType = 'json';
     xhr.send();
-    console.log('xhr.response ', xhr.response);
     xhr.onload = function() {
         console.log('xhr.response ', xhr.response);
         let responseObj = xhr.response;
@@ -153,39 +155,45 @@ function getSpecificPlace(placeId) {
 
 //PUT Specific Place to save it after editing
 function putSpecificPlace(placeId) {
-
-    let formData = new FormData(document.forms.editingForm)
+    let formData = new FormData(document.forms.editingForm);
+    formData.append('placeId', placeId);
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
     let json = JSON.stringify(object);
-    xhr.open('PUT', '/place');
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.send(json);
     console.log(json)
 
-
+    xhr.open('PUT', '/place', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.responseType = 'json';
     
-    // xhr.open('PUT', '/place');
-    // xhr.responseType = 'json';
-    // xhr.send('something');
-    // // saveEditedPlace(placeId)
-    // console.log('xhr.response ', xhr.response);
-
-    // xhr.onload = function() {
-    //     let responseObj = xhr.response;
-    //     console.log('xhr.response ', xhr.response);
-    //     saveEditedPlace(responseObj, placeId)
-    //     console.log('responseObj ', responseObj);
-    // };
-    getPlaces();
+    xhr.onload = function() {
+        let responseObj = xhr.response;
+        // console.log('xhr.response ', xhr.response);
+        console.log('xhr.response ', xhr.response);
+        console.log('specific place: ', responseObj.places[placeId])
+        saveEditedPlace(responseObj, placeId)
+        renderPlaces(responseObj.places);
+        // console.log('responseObj ', responseObj);
+    };
+    xhr.send(json);
 }
 
 //DELETE Specific Place
 function deleteSpecificPlace(placeId) {
-    xhr.open('DELETE', '/place');
+    console.log(placeId);
+    xhr.open('DELETE', '/place/'+placeId);
     xhr.responseType = 'json';
     xhr.send();
 }
+
+// function deleteSpecificPlace(placeId) {
+//     console.log(placeId);
+//     xhr.open('GET', '/placed?id='+placeId);
+//     xhr.responseType = 'json';
+//     xhr.send();
+// }
+
+
 
 
 
@@ -198,7 +206,7 @@ btnAddPlace.addEventListener('click', createAddingForm);
 
 //Create New Place and Send it to the Server
 doc.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--save-edited-place')) {
+    if (event.target.classList.contains('btn--save-added-place')) {
         createNewPlace();
     }
 });
@@ -214,9 +222,10 @@ elemPlaces.addEventListener('click', function() {
 
 //Save Edited Place and Send it to the Server
 doc.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--save-edit-place')) {
+    if (event.target.classList.contains('btn--save-edited-place')) {
         let specificPlace = event.target.parentElement;
         let placeId = specificPlace.getAttribute('data-placeid');
+        console.log('You clicked on save edeted btn');
         putSpecificPlace(placeId);
     }
 });
@@ -225,8 +234,10 @@ doc.addEventListener('click', function() {
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--delete-place')) {
         console.log("Delete Specific Place");
-        // let specificPlace = event.target.parentElement;
-        // let placeId = specificPlace.getAttribute('data-placeid');
-        // getSpecificPlace(placeId);
+        let specificPlace = event.target.parentElement;
+        let placeId = specificPlace.getAttribute('data-placeid');
+        deleteSpecificPlace(placeId);
     }
 });
+
+btnGetPlaces.addEventListener('click', getPlaces);
