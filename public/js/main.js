@@ -96,49 +96,19 @@ function createNewPlace() {
     // getPlaces();
 }
 
-//Create Editing Form on Btn Click
-elemPlaces.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--edit-place')) {
-        let specificPlace = event.target.parentElement;
-        let placeId = specificPlace.getAttribute('data-placeid');
-        getSpecificPlace(placeId);
-    }
-});
-
-//Delete Specific Place
-doc.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--delete-place')) {
-        console.log("Delete Specific Place");
-        // let specificPlace = event.target.parentElement;
-        // let placeId = specificPlace.getAttribute('data-placeid');
-        // getSpecificPlace(placeId);
-    }
-});
-
-//Create Adding Form on Btn Click
-btnAddPlace.addEventListener('click', createAddingForm);
-
-//Create New Place and Send it to the Server
-doc.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--save-edited-place')) {
-        createNewPlace();
-    }
-});
-
-// Edit Specific Place
+//Edit Specific Place
 function saveEditedPlace(placeId) {
     event.preventDefault();
     console.log('Edit Specific Place');
     console.log('placeId ', placeId)
     // renderPlaces();
 }
-doc.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--save-edit-place')) {
-        let specificPlace = event.target.parentElement;
-        let placeId = specificPlace.getAttribute('data-placeid');
-        putSpecificPlace(placeId);
-    }
-});
+
+
+
+
+
+
 
 //GET all Places to render on the page
 function getPlaces() {
@@ -152,6 +122,17 @@ function getPlaces() {
     };
 }
 getPlaces();
+
+//POST New Place to Places
+function postPlace() {
+    let formData = new FormData(document.forms.addingForm)
+    let object = {};
+    formData.forEach((value, key) => {object[key] = value});
+    let json = JSON.stringify(object);
+    xhr.open('POST', '/place');
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);
+}
 
 //GET Specific Place to edit it
 function getSpecificPlace(placeId) {
@@ -193,13 +174,46 @@ function putSpecificPlace(placeId) {
     // getPlaces();
 }
 
-//POST New Place to Places
-function postPlace() {
-    let formData = new FormData(document.forms.addingForm)
-    let object = {};
-    formData.forEach((value, key) => {object[key] = value});
-    let json = JSON.stringify(object);
-    xhr.open('POST', '/place');
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.send(json);
-}
+
+
+
+
+
+
+//Create 'Adding Form' on Btn Click
+btnAddPlace.addEventListener('click', createAddingForm);
+
+//Create New Place and Send it to the Server
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--save-edited-place')) {
+        createNewPlace();
+    }
+});
+
+//Create 'Editing Form' on Btn Click
+elemPlaces.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--edit-place')) {
+        let specificPlace = event.target.parentElement;
+        let placeId = specificPlace.getAttribute('data-placeid');
+        getSpecificPlace(placeId);
+    }
+});
+
+//Save Edited Place and Send it to the Server
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--save-edit-place')) {
+        let specificPlace = event.target.parentElement;
+        let placeId = specificPlace.getAttribute('data-placeid');
+        putSpecificPlace(placeId);
+    }
+});
+
+//Delete Specific Place
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--delete-place')) {
+        console.log("Delete Specific Place");
+        // let specificPlace = event.target.parentElement;
+        // let placeId = specificPlace.getAttribute('data-placeid');
+        // getSpecificPlace(placeId);
+    }
+});
