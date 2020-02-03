@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const path = require('path')
 let port = 3000
 
 //Places Data
@@ -75,18 +74,23 @@ app.use(function(req, res, next) {
   next();
 });
 
+//GET All Places to render on the page
 app.get('/places', function(req, res) {
-  // res.send('GET request to the homepage');
-  console.log('test');
-  console.log(places);
-  console.log(req);
   res.send({places: places});
-  console.log(places);
 });
 
-app.post('/places', function (req, res) {
-  console.log(req.body)
+//GET Specific Place to edit it
+app.get('/place', function(req, res) {
+  res.send({places: places});
+});
 
+//PUT Specific Place to save it after editing
+app.put('/place', function(req, res) {
+  res.send({places: places});
+});
+
+//POST New Place to Places
+app.post('/place', function (req, res) {
   let title = req.body.title;
   let description = req.body.title;
   let openHours = [req.body.open-hours-start, req.body.open-hours-end];

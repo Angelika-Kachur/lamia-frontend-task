@@ -53,7 +53,6 @@ function createAddingForm() {
     form.setAttribute('data-placeId', place);
     form.setAttribute('name', 'addingForm');
     form.setAttribute('action', 'POST');
-    // form.setAttribute('enctype', 'multipart/form-data');
     form.classList.add('places__form');
     form.innerHTML = `<input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
@@ -70,7 +69,7 @@ function createAddingForm() {
 }
 
 //Create Editing Form
-function createEditingForm(index) {
+function createEditingForm(index, places) {
     let place = places[index];
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
@@ -112,7 +111,7 @@ elemPlaces.addEventListener('click', function() {
     if (event.target.classList.contains('btn--edit-place')) {
         let specificPlace = event.target.parentElement;
         let placeId = specificPlace.getAttribute('data-placeid');
-        createEditingForm(placeId)
+        getSpecificPlace(placeId);
     }
 });
 
@@ -162,29 +161,29 @@ doc.addEventListener('click', function() {
 // doc.addEventListener('click', editSpecificPlace);
 
 // Edit Specific Place
-// function editSpecificPlace() {
-//     console.log('Edit Specific Place');
-//     event.preventDefault();
-//     let form = doc.querySelector('.places__form');
-//     let title = form.querySelector('.place__title').value;
-//     let description = form.querySelector('.place__description').value;
-//     let hoursStart = form.querySelector('.place__open-hours-start').value;
-//     let hoursEnd = form.querySelector('.place__open-hours-end').value;
-//     let lat = form.querySelector('.place__lat').value;
-//     let lng = form.querySelector('.place__lng').value;
-//     places[0] = {
-//     }
-//     renderPlaces();
-// }
-// doc.addEventListener('click', function() {
-//     if (event.target.classList.contains('btn--edit-place')) {
-//         editSpecificPlace();
-//     }
-// });
+function editSpecificPlace() {
+    console.log('Edit Specific Place');
+    event.preventDefault();
+    let form = doc.querySelector('.places__form');
+    let title = form.querySelector('.place__title').value;
+    let description = form.querySelector('.place__description').value;
+    let hoursStart = form.querySelector('.place__open-hours-start').value;
+    let hoursEnd = form.querySelector('.place__open-hours-end').value;
+    let lat = form.querySelector('.place__lat').value;
+    let lng = form.querySelector('.place__lng').value;
+    places[0] = {
+    }
+    renderPlaces();
+}
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--save-edit-place')) {
+        editSpecificPlace();
+    }
+});
 
 let xhr = new XMLHttpRequest();
 
-//GET Places
+//GET all Places to render on the page
 function getPlace() {
     xhr.open('GET', '/places');
     xhr.responseType = 'json';
@@ -199,9 +198,40 @@ function getPlace() {
         renderPlaces(responseObj.places);
     };
 }
-
 getBtn.addEventListener('click', getPlace)
-//POST Places
+
+//GET Specific Place to edit it
+function getSpecificPlace(placeId) {
+    xhr.open('GET', '/place');
+    xhr.responseType = 'json';
+    xhr.send();
+    console.log('get');
+    console.log(xhr.response)
+
+    xhr.onload = function() {
+        // alert(`Загружено: ${xhr.status} ${xhr.response}`);
+        let responseObj = xhr.response;
+        console.log(xhr.response);
+        createEditingForm(placeId, responseObj.places)
+    };
+}
+
+//PUT Specific Place to save it after editing
+function putSpecificPlace(placeId) {
+    xhr.open('PUT', '/place');
+    xhr.responseType = 'json';
+    xhr.send();
+    console.log('put');
+    console.log(xhr.response)
+
+    xhr.onload = function() {
+        let responseObj = xhr.response;
+        console.log(xhr.response);
+        // createEditingForm(placeId, responseObj.places)
+    };
+}
+
+//POST New Place to Places
 function postPlace() {
     let formData = new FormData(document.forms.addingForm)
     let object = {};
@@ -217,12 +247,7 @@ function postPlace() {
     // }).catch(function(error) {
     //     console.log(error)
     // })
-    xhr.open('POST', '/places');
-    // xhr.setRequestHeader('Content-type', 'application/form-data; charset=utf-8');
-    // xhr.send(formData);
+    xhr.open('POST', '/place');
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
-    xhr.onload = function() {
-        alert(`Загружено: ${xhr.status} ${xhr.response}`);
-    };
 }
