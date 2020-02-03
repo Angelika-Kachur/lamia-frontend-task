@@ -112,11 +112,11 @@ a:hover {
   margin: 0;
   padding: 0;
   display: flex;
+  flex-wrap: wrap;
 }
 #places__list .place {
-  padding: 10px;
-  margin: 0 10px 10px;
-  border: solid 1px #ccc;
+  width: 33.3%;
+  margin: 0 0 15px;
 }
 #places__list .place__name {
   font-weight: 600;
@@ -131,8 +131,22 @@ a:hover {
 #places__list .place__openHours {
   margin: 0 0 10px;
 }
+#places__list .place__box {
+  padding: 10px;
+  margin: 0 10px 10px;
+  border: solid 1px #ccc;
+}
+#places__list .place__btns {
+  margin: 10px 0 0;
+  display: flex;
+}
+#places__list .place__btns .btn {
+  width: 100%;
+}
 
 .btn {
+  cursor: pointer;
+  display: block;
   padding: 5px 15px;
   border: solid 1px #ccc;
 }

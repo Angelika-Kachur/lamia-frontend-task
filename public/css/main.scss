@@ -77,6 +77,7 @@ a:hover {
 }
 
 .places {
+
 	&__form {
 		max-width: 500px;
 		margin: 0 auto;
@@ -111,11 +112,11 @@ a:hover {
 	margin: 0;
 	padding: 0;
 	display: flex;
+	flex-wrap: wrap;
 
 	.place {
-		padding: 10px;
-		margin: 0 10px 10px;
-		border: solid 1px #ccc;
+		width: 33.3%;
+		margin: 0 0 15px;
 
 		&__name {
 			font-weight: 600;
@@ -130,10 +131,27 @@ a:hover {
 		&__openHours {
 			margin: 0 0 10px;
 		}
+
+		&__box {
+			padding: 10px;
+			margin: 0 10px 10px;
+			border: solid 1px #ccc;
+		}
+
+		&__btns {
+			margin: 10px 0 0;
+			display: flex;
+
+			.btn {
+				width: 100%;
+			}
+		}
 	}
 }
 
 .btn {
+	cursor: pointer;
+	display: block;
 	padding: 5px 15px;
 	border: solid 1px #ccc;
 

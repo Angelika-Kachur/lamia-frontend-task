@@ -23,10 +23,11 @@ function renderPlaces(places) {
                             <div class="place__location">${place.location}</div>
                             <div class="place__openHours">${place.openHours}</div>
                             <div class="place__keywords">${place.keyWords}</div> 
+                            <div class="place__btns">
+                                <button class="btn btn--delete-place">Delete place</button>
+                                <button class="btn btn--edit-place">Edit place</button>
                             </div>
                         </div>
-                        <button class="btn btn--delete-place">Delete place</button>
-                        <button class="btn btn--edit-place">Edit place</button>
                         `;
         elemPlaces.appendChild(li);
     };
@@ -213,7 +214,7 @@ doc.addEventListener('click', function() {
 //Create 'Editing Form' on Btn Click
 elemPlaces.addEventListener('click', function() {
     if (event.target.classList.contains('btn--edit-place')) {
-        let specificPlace = event.target.parentElement;
+        let specificPlace = event.target.closest('.place');
         let placeId = specificPlace.getAttribute('data-placeid');
         getSpecificPlace(placeId);
     }
@@ -222,7 +223,7 @@ elemPlaces.addEventListener('click', function() {
 //Save Edited Place and Send it to the Server
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--save-edited-place')) {
-        let specificPlace = event.target.parentElement;
+        let specificPlace = event.target.closest('.places__form');
         let placeId = specificPlace.getAttribute('data-placeid');
         console.log('You clicked on save edeted btn');
         putSpecificPlace(placeId);
@@ -233,7 +234,7 @@ doc.addEventListener('click', function() {
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--delete-place')) {
         console.log("Delete Specific Place");
-        let specificPlace = event.target.parentElement;
+        let specificPlace = event.target.closest('.place');
         let placeId = specificPlace.getAttribute('data-placeid');
         deleteSpecificPlace(placeId);
     }
