@@ -13,12 +13,11 @@ let btnGetPlaces = doc.querySelector('#get-button');
 function renderPlaces(places) {
     elemPlaces.innerHTML = '';
     for (let place of places) {
-        // console.log(place)
-    
         let li = doc.createElement('li');
         li.setAttribute('data-placeid', place.id);
+        li.setAttribute('data-isdeleted', place.isDeleted);
         li.classList.add('place');
-        li.innerHTML = `<div class="place__box is-deleted-${place.isDeleted}" data-isdeleted="${place.isDeleted}">
+        li.innerHTML = `<div class="place__box">
                             <div class="place__name">${place.title}</div>
                             <div class="place__description">${place.description}</div>
                             <div class="place__location">${place.location}</div>
