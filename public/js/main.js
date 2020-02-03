@@ -117,7 +117,7 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
-        console.log(responseObj);
+        console.log(responseObj.places);
         renderPlaces(responseObj.places);
     };
 }
@@ -142,6 +142,7 @@ function getSpecificPlace(placeId) {
     console.log('Get specific place: ', placeId)
     xhr.onload = function() {
         let responseObj = xhr.response;
+        console.log('specific place: ', responseObj.places[placeId])
         createEditingForm(placeId, responseObj.places)
     };
 }
