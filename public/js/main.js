@@ -58,14 +58,14 @@ function createAddingForm() {
     form.innerHTML = `<input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="number" min="1" max="24" placeholder="${place.openHours} - start" class="input place__hoursStart">
-                        <input name="hoursEnd" type="number" min="1" max="24" placeholder="${place.openHours} - end" class="input place__hoursEnd">
+                        <input name="hoursStart" type="number" min="1" max="24" placeholder="10" class="input place__hoursStart">
+                        <input name="hoursEnd" type="number" min="1" max="24" placeholder="22" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
-                        <input name="lat" type="text" placeholder="${place.location}" class="input place__lat">
-                        <input name="lng" type="text" placeholder="${place.location}" class="input place__lng">
+                        <input name="lat" type="text" placeholder="${place.location[0]}" class="input place__lat">
+                        <input name="lng" type="text" placeholder="${place.location[1]}" class="input place__lng">
                     </div>
-                    <button class="btn btn--save-added-place">Save adding place</button>`;
+                    <button class="btn btn--save btn--save-added-place">Save adding place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -81,14 +81,14 @@ function createEditingForm(index, places) {
     form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input                          place__title">
                     <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="number" min="1" max="24" value="${place.openHours} - start" class="input place__hoursStart">
-                        <input name="hoursEnd" type="number" min="1" max="24" value="${place.openHours} - end" class="input place__hoursEnd">
+                        <input name="hoursStart" type="number" min="1" max="24" value="${place.openHours[0]}" class="input place__hoursStart">
+                        <input name="hoursEnd" type="number" min="1" max="24" value="${place.openHours[1]} " class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
-                        <input name="lat" type="text" value="${place.location}" class="input place__lat">
-                        <input name="lng" type="text" value="${place.location}" class="input place__lng">
+                        <input name="lat" type="text" value="${place.location[0]}" class="input place__lat">
+                        <input name="lng" type="text" value="${place.location[1]}" class="input place__lng">
                     </div>
-                    <button type="button" class="btn btn--save-edited-place">Save editing place</button>`;
+                    <button type="button" class="btn btn--save btn--save-edited-place">Save editing place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -246,7 +246,6 @@ doc.addEventListener('click', function() {
     }
 });
 
-// elemPopup
 function showPopup() {
     elemPopup.classList.add('popup--open');
 }
@@ -257,4 +256,10 @@ function hidePopup() {
 
 btnClosePopup.addEventListener('click', function() {
     hidePopup();
+});
+
+elemPopup.addEventListener('click', function(e) {
+    if(event.target.classList.contains('popup')) {
+        hidePopup();
+    }
 });

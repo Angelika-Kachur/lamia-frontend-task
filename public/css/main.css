@@ -137,27 +137,64 @@ a:hover {
   border: solid 1px #ccc;
 }
 #places__list .place__btns {
-  margin: 10px 0 0;
+  margin: 10px -10px -10px;
   display: flex;
 }
 #places__list .place__btns .btn {
   width: 100%;
 }
 
+.input {
+  border: solid 1px #ccc;
+  font-size: 14px;
+}
+
+.textarea {
+  border: solid 1px #ccc;
+  min-height: 100px;
+  font-size: 14px;
+}
+
 .btn {
   cursor: pointer;
   display: block;
-  padding: 5px 15px;
+  padding: 10px;
   border: solid 1px #ccc;
+  background: transparent;
+  transition: all ease 0.3s;
+  color: #fff;
+  font-size: 16px;
 }
 .btn--add-place {
-  border: solid 1px pink;
+  background: #68A691;
+  border: solid 1px #68A691;
+  padding: 10px 20px;
+}
+.btn--add-place:hover {
+  background: #68A691;
 }
 .btn--edit-place {
-  border: solid 1px green;
+  background: #9DB4C0;
+  border: solid 1px #9DB4C0;
+}
+.btn--edit-place:hover {
+  background: #9DB4C0;
 }
 .btn--delete-place {
-  border: solid 1px red;
+  background: #694F5D;
+  border: solid 1px #694F5D;
+}
+.btn--delete-place:hover {
+  background: #694F5D;
+}
+.btn--save {
+  margin: 0 auto;
+  background: #68A691;
+  border: solid 1px #68A691;
+  padding: 10px 20px;
+}
+.btn--save:hover {
+  background: #68A691;
 }
 
 .edit-place__box {
@@ -179,6 +216,9 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
+}
+.popup .places__form {
+  padding: 10px;
 }
 .popup .places__form-modal {
   background: #fff;

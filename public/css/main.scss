@@ -139,7 +139,7 @@ a:hover {
 		}
 
 		&__btns {
-			margin: 10px 0 0;
+			margin: 10px -10px -10px;
 			display: flex;
 
 			.btn {
@@ -149,20 +149,60 @@ a:hover {
 	}
 }
 
+.input {
+	border: solid 1px #ccc;
+	font-size: 14px;
+}
+.textarea {
+	border: solid 1px #ccc;
+	min-height: 100px;
+	font-size: 14px;
+}
+
 .btn {
 	cursor: pointer;
 	display: block;
-	padding: 5px 15px;
+	padding: 10px;
 	border: solid 1px #ccc;
+	background: transparent;
+	transition: all ease .3s;
+	color: #fff;
+	font-size: 16px;
 
 	&--add-place {
-		border: solid 1px pink;	
+		background: #68A691;
+		border: solid 1px #68A691;	
+		padding: 10px 20px;
+
+		&:hover {
+			background:#68A691;
+		}
 	}
 	&--edit-place {
-		border: solid 1px green;	
+		background: #9DB4C0;
+		border: solid 1px #9DB4C0;	
+
+		&:hover {
+			background: #9DB4C0;
+		}
 	}
 	&--delete-place {
-		border: solid 1px red;	
+		background: #694F5D;
+		border: solid 1px #694F5D;	
+
+		&:hover {
+			background: #694F5D;
+		}
+	}
+	&--save {
+		margin: 0 auto;
+		background: #68A691;
+		border: solid 1px #68A691;	
+		padding: 10px 20px;
+
+		&:hover {
+			background:#68A691;
+		}
 	}
 }
 
@@ -185,6 +225,10 @@ a:hover {
 		left: 0;
 		right: 0;
 		bottom: 0;
+	}
+
+	.places__form {
+		padding: 10px;
 	}
 
 	.places__form-modal {

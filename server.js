@@ -64,7 +64,6 @@ app.post('/place', function (req, res) {
 //DELETE Specific Place to Places
 app.delete('/place/:id', function (req, res) {
   let id = req.params.id;
-  console.log(id)
   places[id].isDeleted = true;
   res.send({places: places});
 })
