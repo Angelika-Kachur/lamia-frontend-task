@@ -28,11 +28,13 @@ app.get('/places', function(req, res) {
 //GET Specific Place to edit it
 app.get('/place', function(req, res) {
   res.send({places: places});
+  console.log(res.body);
   console.log('Succesfully GET specific!');
 });
 
 //PUT Specific Place to save it after editing
 app.put('/place', function(req, res) {
+  // res.send({places: places});
   res.send({places: places});
   console.log(req.body);
   console.log(res.body);
@@ -41,15 +43,25 @@ app.put('/place', function(req, res) {
 
 //POST New Place to Places
 app.post('/place', function (req, res) {
-  console.log(req.body);
-  let title = req.body.title;
-  let description = req.body.title;
-  let openHours = [req.body.hoursStart, req.body.hoursEnd];
-  let location = [req.body.lat, req.body.lng];
-  let keyWords = ['pizza'];
-  currentId++;
+  let newPlace = {
+    id: currentId++,
+    title: req.body.title,
+    description: req.body.title,
+    openHours: [req.body.hoursStart, req.body.hoursEnd],
+    location: [req.body.lat, req.body.lng],
+    online: false,
+    keyWords: ['pizza']
+  }
+  places.push(newPlace);
+  res.send({places: places});
+  return res.end('done')
+})
 
-  places.push({
+//DELETE Specific Place to Places
+app.delete('/place', function (req, res) {
+  console.log(req.body);
+
+  let newPlace = {
     id: currentId++,
     title: title,
     description: description,
@@ -57,8 +69,10 @@ app.post('/place', function (req, res) {
     location: location,
     online: false,
     keyWords: keyWords
-  });
-  res.send('Successfully created place!');
+  }
+
+  places.push(newPlace);
+  res.send({places: places});
   return res.end('done')
 })
 

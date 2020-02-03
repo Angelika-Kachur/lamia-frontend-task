@@ -6,8 +6,6 @@ const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let elemForm = doc.querySelector('#places__form-holder');
 let btnAddPlace = doc.querySelector('.btn--add-place');
-let btnEditPlace = doc.querySelector('#btn--add-place');
-let getBtn = doc.querySelector('#get-button');
 
 //Render All Places
 function renderPlaces(places) {
@@ -84,7 +82,7 @@ function createEditingForm(index, places) {
                     </div>
                     <div class="inputs-holder">
                         <input type="text" value="${place.location}" class="input place__lat">
-                        <input type="text" placeholder="${place.location}" class="input place__lng">
+                        <input type="text" value="${place.location}" class="input place__lng">
                     </div>
                     <button id="place__edit" class="btn btn--save-edit-place">Save editing place</button>`;
     elemForm.appendChild(form);
@@ -95,7 +93,7 @@ function createNewPlace() {
     event.preventDefault();
     console.log('createNewPlace');
     postPlace();
-    // renderPlaces(places);
+    // getPlaces();
 }
 
 //Create Editing Form on Btn Click
@@ -104,6 +102,16 @@ elemPlaces.addEventListener('click', function() {
         let specificPlace = event.target.parentElement;
         let placeId = specificPlace.getAttribute('data-placeid');
         getSpecificPlace(placeId);
+    }
+});
+
+//Delete Specific Place
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('btn--delete-place')) {
+        console.log("Delete Specific Place");
+        // let specificPlace = event.target.parentElement;
+        // let placeId = specificPlace.getAttribute('data-placeid');
+        // getSpecificPlace(placeId);
     }
 });
 
@@ -122,8 +130,6 @@ function saveEditedPlace(placeId) {
     event.preventDefault();
     console.log('Edit Specific Place');
     console.log('placeId ', placeId)
-
-
     // renderPlaces();
 }
 doc.addEventListener('click', function() {
@@ -141,11 +147,11 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
+        console.log(responseObj);
         renderPlaces(responseObj.places);
     };
 }
 getPlaces();
-getBtn.addEventListener('click', getPlaces)
 
 //GET Specific Place to edit it
 function getSpecificPlace(placeId) {
@@ -171,6 +177,20 @@ function putSpecificPlace(placeId) {
         console.log('responseObj ', responseObj);
     };
     getPlaces();
+}
+
+//DELETE Specific Place
+function putSpecificPlace(placeId) {
+    xhr.open('DELETE', '/place');
+    xhr.responseType = 'json';
+    xhr.send();
+    // saveEditedPlace(placeId)
+    // xhr.onload = function() {
+    //     let responseObj = xhr.response;
+    //     saveEditedPlace(placeId)
+    //     console.log('responseObj ', responseObj);
+    // };
+    // getPlaces();
 }
 
 //POST New Place to Places
