@@ -1,0 +1,153 @@
+/* TASK */
+.task {
+  padding: 20px 0;
+}
+
+h2 {
+  margin: 0 0 20px;
+  padding: 10px;
+  font-style: italic;
+  background: #fff8dc;
+  text-align: center;
+}
+
+/* BASE */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Times New Roman";
+  font-size: 16px;
+}
+
+h3 {
+  margin: 10px 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: green;
+}
+
+.main-text p {
+  margin: 0 0 25px;
+}
+
+/* Table Phones */
+#table_phones {
+  font-size: 14px;
+}
+
+#table_phones th,
+#table_phones td {
+  padding: 10px;
+}
+
+#table_phones th:first-child,
+#table_phones td:first-child {
+  width: 50%;
+}
+
+#table_phones th {
+  background: #1b4845;
+  color: #fff;
+  font-size: 20px;
+  padding: 0;
+}
+
+#table_phones td {
+  background: #fff8dc;
+}
+
+#table_phones a {
+  display: block;
+  padding: 10px;
+  color: #fff;
+  transition: background ease 0.5s;
+}
+
+#table_phones a:hover {
+  background: #01201e;
+}
+
+#map {
+  height: 500px;
+}
+
+.places__form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.places__form .input {
+  display: block;
+  margin: 0 0 10px;
+  width: 100%;
+  padding: 6px;
+}
+.places__form .textarea {
+  resize: none;
+  width: 100%;
+  padding: 6px;
+}
+.places__form .inputs-holder {
+  display: flex;
+}
+.places__form .inputs-holder .input {
+  margin: 0 10px 10px 0;
+}
+.places__form .inputs-holder .input:last-child {
+  margin: 0 0 10px;
+}
+
+#places__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+#places__list .place {
+  padding: 10px;
+  margin: 0 10px 10px;
+  border: solid 1px #ccc;
+}
+#places__list .place__name {
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+#places__list .place__description {
+  margin: 0 0 10px;
+}
+#places__list .place__location {
+  margin: 0 0 10px;
+}
+#places__list .place__openHours {
+  margin: 0 0 10px;
+}
+
+.btn {
+  padding: 5px 15px;
+  border: solid 1px #ccc;
+}
+.btn--add-place {
+  border: solid 1px pink;
+}
+.btn--edit-place {
+  border: solid 1px green;
+}
+.btn--delete-place {
+  border: solid 1px red;
+}
+
+.edit-place__box {
+  display: none;
+}
+
+/*# sourceMappingURL=main.css.map */
