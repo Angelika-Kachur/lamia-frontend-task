@@ -8,8 +8,6 @@ let elemForm = doc.querySelector('#places__form-holder');
 let elemPopup = doc.querySelector('.popup');
 let btnClosePopup = doc.querySelector('.close-popup');
 let btnAddPlace = doc.querySelector('.btn--add-place');
-let btnGetPlaces = doc.querySelector('#get-button');
-
 
 //Render All Places
 function renderPlaces(places) {
@@ -247,8 +245,6 @@ doc.addEventListener('click', function() {
         deleteSpecificPlace(placeId);
     }
 });
-
-btnGetPlaces.addEventListener('click', getPlaces);
 
 // elemPopup
 function showPopup() {
