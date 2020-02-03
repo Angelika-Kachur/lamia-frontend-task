@@ -28,7 +28,6 @@ app.get('/places', function(req, res) {
 //GET Specific Place to edit it
 app.get('/place', function(req, res) {
   res.send({places: places});
-  console.log({places: places});
   console.log('Succesfully GET specific!');
 });
 

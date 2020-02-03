@@ -72,6 +72,7 @@ function createEditingForm(index, places) {
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
     form.setAttribute('action', '#');
+    form.setAttribute('name', 'editingForm');
     form.setAttribute('data-placeId', place);
     form.classList.add('places__form');
     form.innerHTML = `<input type="text" value="${place.title}" class="input                          place__title">
@@ -97,10 +98,11 @@ function createNewPlace() {
 }
 
 //Edit Specific Place
-function saveEditedPlace(placeId) {
+function saveEditedPlace(places, placeId) {
     event.preventDefault();
     console.log('Edit Specific Place');
     console.log('placeId ', placeId)
+    console.log('Specific Edeted Place ', places[placeId])
     // renderPlaces();
 }
 
@@ -117,7 +119,7 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
-        console.log(responseObj.places);
+        // console.log(responseObj.places);
         renderPlaces(responseObj.places);
     };
 }
@@ -132,6 +134,7 @@ function postPlace() {
     xhr.open('POST', '/place');
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
+    console.log(json)
 }
 
 //GET Specific Place to edit it
@@ -139,8 +142,9 @@ function getSpecificPlace(placeId) {
     xhr.open('GET', '/place');
     xhr.responseType = 'json';
     xhr.send();
-    console.log('Get specific place: ', placeId)
+    console.log('xhr.response ', xhr.response);
     xhr.onload = function() {
+        console.log('xhr.response ', xhr.response);
         let responseObj = xhr.response;
         console.log('specific place: ', responseObj.places[placeId])
         createEditingForm(placeId, responseObj.places)
@@ -149,30 +153,38 @@ function getSpecificPlace(placeId) {
 
 //PUT Specific Place to save it after editing
 function putSpecificPlace(placeId) {
+
+    let formData = new FormData(document.forms.editingForm)
+    let object = {};
+    formData.forEach((value, key) => {object[key] = value});
+    let json = JSON.stringify(object);
     xhr.open('PUT', '/place');
-    xhr.responseType = 'json';
-    xhr.send();
-    saveEditedPlace(placeId)
-    xhr.onload = function() {
-        let responseObj = xhr.response;
-        saveEditedPlace(placeId)
-        console.log('responseObj ', responseObj);
-    };
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);
+    console.log(json)
+
+
+    
+    // xhr.open('PUT', '/place');
+    // xhr.responseType = 'json';
+    // xhr.send('something');
+    // // saveEditedPlace(placeId)
+    // console.log('xhr.response ', xhr.response);
+
+    // xhr.onload = function() {
+    //     let responseObj = xhr.response;
+    //     console.log('xhr.response ', xhr.response);
+    //     saveEditedPlace(responseObj, placeId)
+    //     console.log('responseObj ', responseObj);
+    // };
     getPlaces();
 }
 
 //DELETE Specific Place
-function putSpecificPlace(placeId) {
+function deleteSpecificPlace(placeId) {
     xhr.open('DELETE', '/place');
     xhr.responseType = 'json';
     xhr.send();
-    // saveEditedPlace(placeId)
-    // xhr.onload = function() {
-    //     let responseObj = xhr.response;
-    //     saveEditedPlace(placeId)
-    //     console.log('responseObj ', responseObj);
-    // };
-    // getPlaces();
 }
 
 
