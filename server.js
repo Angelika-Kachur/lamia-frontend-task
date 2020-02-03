@@ -4,64 +4,10 @@ const bodyParser = require('body-parser')
 let port = 3000
 
 //Places Data
-let places = [
-  {
-      id: 0,
-      title: 'Arnold',
-      description: 'This is a great Donuts place',
-      openHours:  [
-          10,
-          18
-      ],
-      location: [
-          24.941325187683105,
-          60.169938852212965
-      ],
-      online: false,
-      keyWords: [
-          'donuts',
-          'sweets',
-          'tee'
-      ]
-  },
-  {
-      id: 1,
-      title: 'Sushi',
-      description: 'This is a great Sushi place',
-      openHours:  [
-          10,
-          18
-      ],
-      location: [
-          24.941325187683105,
-          60.169938852212965
-      ],
-      online: false,
-      keyWords: [
-          'sushi',
-          'fish'
-      ]
-  },
-  {
-      id: 2,
-      title: 'Pizza Sushi',
-      description: 'This is a great Pizza place',
-      openHours:  [
-          10,
-          20
-      ],
-      location: [
-          24.941325187683105,
-          60.169938852212965
-      ],
-      online: false,
-      keyWords: [
-          'pizza',
-          'fries',
-          'soda'
-      ]
-  },
-];
+let placesJson = require("./data.json");
+let places = placesJson.places;
+
+console.log(places);
 
 let currentId = 3;
 
