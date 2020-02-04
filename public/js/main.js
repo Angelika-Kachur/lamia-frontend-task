@@ -45,9 +45,10 @@ function renderPlacesOnMap(places) {
     for (let place of places) {
         console.log(place.title);
         let title =  place.title;
-        console.log(place.location[0]);
+        console.log(parseFloat(place.location[0]));
         console.log(place.location[1]);
-        let location =  { lat: place.location[0], lng: place.location[1] }
+        let location =  { lat: parseFloat(place.location[0]), lng: parseFloat(place.location[1]) }
+        // let location =  { lat: place.location[0], lng: place.location[1] }
         createMarker(location, title);
     }
 }
