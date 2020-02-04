@@ -6,6 +6,53 @@ const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let btnAddPlace = doc.querySelector('.btn--add-place');
 
+//Render Places on Map
+let map;
+
+function initMap() {
+    var myLatLng = { lat: 60.16901644495906, lng: 24.93797779083252 };
+  
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 13,
+      center: myLatLng
+    });
+  
+    // var marker = new google.maps.Marker({
+    //   position: myLatLng,
+    //   map: map,
+    //   title: 'Arnolds'
+    // });
+
+}
+ 
+function createMap() {
+    var myLatLng2 = { lat: 60.17130667985175, lng: 24.94673252105713 };
+    initMap();
+    // createMarker(myLatLng2);
+}
+
+function createMarker(location, title) {
+    let marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: title
+    });
+}
+
+function renderPlacesOnMap(places) {
+    console.log(places);
+
+    for (let place of places) {
+        console.log(place.title);
+        let title =  place.title;
+        console.log(place.location[0]);
+        console.log(place.location[1]);
+        let location =  { lat: place.location[0], lng: place.location[1] }
+        createMarker(location, title);
+    }
+}
+
+
 //Render All Places
 function renderPlaces(places) {
     elemPlaces.innerHTML = '';
@@ -115,7 +162,9 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
+        console.log(responseObj.places);
         renderPlaces(responseObj.places);
+        renderPlacesOnMap(responseObj.places);
     };
 }
 getPlaces();
