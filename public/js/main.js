@@ -54,7 +54,8 @@ function createAddingForm() {
     form.setAttribute('name', 'addingForm');
     form.setAttribute('action', 'POST');
     form.classList.add('places__form');
-    form.innerHTML = `<input name="title" type="text" placeholder="${place.title}" class="input place__title">
+    form.innerHTML = `<h2 class="form__title">Add new Place</h2>
+                    <input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
                         <input name="hoursStart" type="number" min="1" max="24" placeholder="10" class="input place__hoursStart">

@@ -1,8 +1,4 @@
 /* TASK */
-.task {
-  padding: 20px 0;
-}
-
 h2 {
   margin: 0 0 20px;
   padding: 10px;
@@ -204,10 +200,15 @@ a:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: solid 1px #000;
+  border: solid 1px #ccc;
 }
 .popup .places__form {
   padding: 10px;
+}
+.popup .form__title {
+  margin: -10px -10px 10px;
+  background: #9DB4C0;
+  color: #fff;
 }
 .popup .close-popup {
   position: absolute;
@@ -215,35 +216,27 @@ a:hover {
   top: -30px;
   right: -30px;
   padding: 5px;
-  background: rgba(0, 0, 0, 0.4);
+  width: 30px;
+  height: 30px;
+  background: #694F5D;
+  border: solid 1px #ccc;
   border-radius: 50px;
-  border: solid 1px #000;
-  width: 25px;
-  height: 25px;
-  background-color: red;
-  border: 1px solid black;
+}
+.popup .close-popup:before, .popup .close-popup:after {
+  content: "";
+  display: block;
+  height: 20px;
+  width: 1px;
+  background-color: #fff;
+  position: absolute;
+  top: 4px;
+  left: 13px;
 }
 .popup .close-popup:before {
-  content: "";
-  display: block;
-  height: 20px;
-  width: 2px;
-  background-color: black;
   transform: rotate(45deg);
-  position: absolute;
-  top: 2px;
-  left: 10px;
 }
 .popup .close-popup:after {
-  content: "";
-  display: block;
-  height: 20px;
-  width: 2px;
-  background-color: black;
   transform: rotate(-45deg);
-  position: absolute;
-  top: 2px;
-  left: 10px;
 }
 
 /*# sourceMappingURL=main.css.map */

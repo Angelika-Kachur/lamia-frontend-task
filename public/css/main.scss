@@ -1,7 +1,4 @@
 /* TASK */
-.task {
-	padding: 20px 0;
-}
 h2 {
 	margin: 0 0 20px;
 	padding: 10px;
@@ -9,6 +6,13 @@ h2 {
 	background: #fff8dc;
 	text-align: center;
 }
+
+
+$primary-color: #68A691;
+$light-color: #9DB4C0;
+$warning-color: #694F5D;
+
+
 
 /* BASE */
 * {
@@ -149,38 +153,38 @@ a:hover {
 	font-size: 16px;
 
 	&--add-place {
-		background: #68A691;
-		border: solid 1px #68A691;	
+		background: $primary-color;
+		border: solid 1px $primary-color;
 		padding: 10px 20px;
 
 		&:hover {
-			background:#68A691;
+			background: $primary-color;
 		}
 	}
 	&--edit-place {
-		background: #9DB4C0;
-		border: solid 1px #9DB4C0;	
+		background: $light-color;
+		border: solid 1px $light-color;
 
 		&:hover {
-			background: #9DB4C0;
+			background: $light-color;
 		}
 	}
 	&--delete-place {
-		background: #694F5D;
-		border: solid 1px #694F5D;	
+		background: $warning-color;
+		border: solid 1px $warning-color;
 
 		&:hover {
-			background: #694F5D;
+			background: $warning-color;
 		}
 	}
 	&--save {
 		margin: 0 auto;
-		background: #68A691;
-		border: solid 1px #68A691;	
+		background:$primary-color;
+		border: solid 1px $primary-color;
 		padding: 10px 20px;
 
 		&:hover {
-			background:#68A691;
+			background: $primary-color;
 		}
 	}
 }
@@ -206,17 +210,25 @@ a:hover {
 		bottom: 0;
 	}
 
-	.places__form-modal {
-		background: #fff;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		border: solid 1px #000;
+	.places {
+		&__form-modal {
+			background: #fff;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: solid 1px #ccc;
+		}
+	
+		&__form {
+			padding: 10px;
+		}
 	}
 
-	.places__form {
-		padding: 10px;
+	.form__title {
+		margin: -10px -10px 10px;
+		background: $light-color;
+		color: #fff;
 	}
 
 	.close-popup {
@@ -225,37 +237,30 @@ a:hover {
 		top: -30px;
 		right: -30px;
 		padding: 5px;
-		background: rgba(0, 0, 0, .4);
+		width: 30px;
+		height: 30px;
+		background: $warning-color;
+		border: solid 1px #ccc;
 		border-radius: 50px;
-		border: solid 1px #000;
 
-		width: 25px;
-		height: 25px;
-		background-color: red;
-		border: 1px solid black;
-
-		&:before {
-			content: "";
-			display: block;
-			height: 20px;
-			width: 2px;
-			background-color: black;
-			transform: rotate(45deg);
-			position: absolute;
-			top: 2px;
-			left: 10px;
-		}
-		
+		&:before, 
 		&:after {
 			content: "";
 			display: block;
-			height: 20px;
-			width: 2px;
-			background-color: black;
-			transform: rotate(-45deg);
+			height:20px;
+			width: 1px;
+			background-color: #fff;
 			position: absolute;
-			top: 2px;
-			left: 10px;
+			top: 4px;
+			left: 13px;
+		}
+
+		&:before {
+			transform: rotate(45deg);
+		}
+		
+		&:after {
+			transform: rotate(-45deg);
 		}
 	}
 }
