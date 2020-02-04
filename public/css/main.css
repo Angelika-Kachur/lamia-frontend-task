@@ -1,40 +1,97 @@
-/* TASK */
-h2 {
-  margin: 0 0 20px;
-  padding: 10px;
-  font-style: italic;
-  background: #fff8dc;
-  text-align: center;
+@charset "UTF-8";
+/* Icomoon Fonts */
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+@font-face {
+  font-family: "icomoon";
+  src: url("/fonts/icomoon/icomoon.eot?ragw5j");
+  src: url("/fonts/icomoon/icomoon.eot?ragw5j#iefix") format("embedded-opentype"), url("/fonts/icomoon/icomoon.ttf?ragw5j") format("truetype"), url("/fonts/icomoon/icomoon.woff?ragw5j") format("woff"), url("/fonts/icomoon/icomoon.svg?ragw5j#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+[class^=icon-], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "icomoon" !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* BASE */
+.icon-map:before {
+  content: "";
+}
+
+.icon-magnifying-glass:before {
+  content: "";
+}
+
+.icon-search:before {
+  content: "";
+}
+
+.icon-pen-angled:before {
+  content: "";
+}
+
+.icon-search1:before {
+  content: "";
+}
+
+.icon-add:before {
+  content: "";
+}
+
+.icon-close:before {
+  content: "";
+}
+
+.icon-check:before {
+  content: "";
+}
+
+.icon-filter:before {
+  content: "";
+}
+
+.icon-trash-2:before {
+  content: "";
+}
+
+.icon-star:before {
+  content: "";
+}
+
+.icon-trash-o:before {
+  content: "";
+}
+
+.icon-earth:before {
+  content: "";
+}
+
+.icon-filter1:before {
+  content: "";
+}
+
+/* Variabes */
+/* Fonts */
+/* Media Queries */
+/* General Styles */
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Times New Roman";
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
-}
-
-h3 {
-  margin: 10px 0;
-}
-
-p {
-  margin: 10px 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  color: green;
-}
-
-.main-text p {
-  margin: 0 0 25px;
+  margin: 0;
 }
 
 .wrapper {
@@ -43,8 +100,19 @@ a:hover {
   max-width: 1200px;
   margin: 0 auto;
   background: #ccc;
+  height: 100vh;
 }
 
+/* Title */
+.title--main {
+  margin: 0;
+  padding: 10px;
+  font-style: italic;
+  background: #fff8dc;
+  text-align: center;
+}
+
+/* Map */
 #map {
   height: 80vh;
 }
@@ -52,11 +120,25 @@ a:hover {
 .map {
   width: 75%;
 }
+@media (max-width: 992px) {
+  .map {
+    width: 60%;
+  }
+}
 
+/* Places */
 .places {
   width: 25%;
-  height: 80vh;
-  overflow: auto;
+  background: #fff;
+}
+@media (max-width: 992px) {
+  .places {
+    width: 40%;
+  }
+}
+.places .btn--add-place {
+  width: 100%;
+  margin: 0 auto;
 }
 .places__form {
   max-width: 500px;
@@ -86,10 +168,9 @@ a:hover {
 #places__list {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column-reverse;
+  padding: 20px 0 0;
+  height: calc(100vh - 108px);
+  overflow: auto;
 }
 #places__list .place {
   width: 100%;
@@ -187,7 +268,7 @@ a:hover {
 }
 .popup--open {
   display: block;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;

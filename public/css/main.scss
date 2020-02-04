@@ -1,66 +1,160 @@
-/* TASK */
-h2 {
-	margin: 0 0 20px;
-	padding: 10px;
-	font-style: italic;
-	background: #fff8dc;
-	text-align: center;
+/* Icomoon Fonts */
+@font-face {
+	font-family: 'icomoon';
+	src:  url('/fonts/icomoon/icomoon.eot?ragw5j');
+	src:  url('/fonts/icomoon/icomoon.eot?ragw5j#iefix') format('embedded-opentype'),
+	  url('/fonts/icomoon/icomoon.ttf?ragw5j') format('truetype'),
+	  url('/fonts/icomoon/icomoon.woff?ragw5j') format('woff'),
+	  url('/fonts/icomoon/icomoon.svg?ragw5j#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+  
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+  
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+  
+.icon-map:before {
+	content: "\e025";
+}
+.icon-magnifying-glass:before {
+	content: "\e037";
+}
+.icon-search:before {
+	content: "\e900";
+}
+.icon-pen-angled:before {
+	content: "\e901";
+}
+.icon-search1:before {
+	content: "\e902";
+}
+.icon-add:before {
+	content: "\e145";
+}
+.icon-close:before {
+	content: "\e5cd";
+}
+.icon-check:before {
+	content: "\e903";
+}
+.icon-filter:before {
+	content: "\e904";
+}
+.icon-trash-2:before {
+	content: "\e905";
+}
+.icon-star:before {
+	content: "\f005";
+}
+.icon-trash-o:before {
+	content: "\f014";
+}
+.icon-earth:before {
+	content: "\e906";
+}
+.icon-filter1:before {
+	content: "\e907";
 }
 
-
+/* Variabes */
 $primary-color: #68A691;
 $secondary-color: #9DB4C0;
 $warning-color: #694F5D;
 $gray-color: #ccc;
 $white-color: #fff;
 
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
 
+$font-family: 'Roboto', sans-serif;
+$font-family-primary: 'Lato', sans-serif;
 
-/* BASE */
+/* Media Queries */
+@mixin for-desktop-s {
+	@media (max-width: 1200px) {
+	  @content;
+	}
+}
+  
+@mixin for-tablet {
+	@media (max-width: 992px) {
+	  @content;
+	}
+}
+  
+@mixin for-phone {
+	@media (max-width: 768px) {
+	  @content;
+	}
+}
+
+/* General Styles */
 * {
 	box-sizing: border-box;
 }
 body {
-	font-family: 'Times New Roman';
+	font-family: $font-family;
 	font-size: 16px;
+	margin: 0;
 }
-h3 {
-	margin: 10px 0;
-}
-p {
-	margin: 10px 0;
-}
-a {
-	text-decoration: none;
-}
-a:hover {
-	color: green;
-}
-
-.main-text p {
-	margin: 0 0 25px;
-}
-
 .wrapper {
 	display: flex;
 	display: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
 	background: $gray-color;
+	height: 100vh;
 }
 
+/* Title */
+.title--main {
+	margin: 0;
+	padding: 10px;
+	font-style: italic;
+	background: #fff8dc;
+	text-align: center;
+}
+
+/* Map */
 #map {
 	height: 80vh;
 }
 
 .map {
 	width: 75%;
+
+	@include for-tablet {
+		width: 60%;
+	}
 }
 
+/* Places */
 .places {
 	width: 25%;
-    height: 80vh;
-    overflow: auto;
+	background: $white-color;
+
+	@include for-tablet {
+		width: 40%;
+	}
+
+	.btn--add-place {
+		width: 100%;
+		margin: 0 auto;
+	}
 
 	&__form {
 		max-width: 500px;
@@ -91,13 +185,12 @@ a:hover {
 	}
 }
 
-#places__list { 
+#places__list {
 	list-style: none;
 	margin: 0;
-	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: column-reverse;
+	padding: 20px 0 0;
+	height: calc(100vh - 108px);
+    overflow: auto;
 
 	.place {
 		width: 100%;
@@ -204,7 +297,7 @@ a:hover {
 	
 	&--open {
 		display: block;
-		background: rgba(0, 0, 0, .5);
+		background: rgba(0, 0, 0, .7);
 		position: fixed;
 		top: 0;
 		left: 0;
