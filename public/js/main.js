@@ -34,25 +34,25 @@ function createMap() {
 function createMarker(location, title) {
     let marker = new google.maps.Marker({
         position: location,
-        map: map,
         title: title
     });
+    marker.setMap(map);
+    console.log(marker)
 }
 
 function renderPlacesOnMap(places) {
     console.log(places);
-
     for (let place of places) {
-        console.log(place.title);
-        let title =  place.title;
-        console.log(parseFloat(place.location[0]));
-        console.log(place.location[1]);
-        let location =  { lat: parseFloat(place.location[0]), lng: parseFloat(place.location[1]) }
-        // let location =  { lat: place.location[0], lng: place.location[1] }
-        createMarker(location, title);
+
+        if(place.isDeleted) {
+            marker.setMap(null);
+        } else {
+            let title =  place.title;
+            let location =  { lat: parseFloat(place.location[0]), lng: parseFloat(place.location[1]) }
+            createMarker(location, title);
+        }
     }
 }
-
 
 //Render All Places
 function renderPlaces(places) {
@@ -208,6 +208,7 @@ function putSpecificPlace(placeId) {
         let responseObj = xhr.response;
         saveEditedPlace(responseObj, placeId)
         renderPlaces(responseObj.places);
+        renderPlacesOnMap(responseObj.places);
     };
     xhr.send(json);
 }
