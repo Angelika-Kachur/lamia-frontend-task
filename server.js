@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-let port = 3000
+let port = 9000
 
 //Places Data
 let placesJson = require("./data.json");
