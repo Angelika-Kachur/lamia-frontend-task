@@ -20,8 +20,8 @@ function renderPlaces(places) {
                             <div class="place__openHours">${place.openHours}</div>
                             <div class="place__keywords">${place.keyWords}</div> 
                             <div class="place__btns">
-                                <button class="btn btn--delete-place">Delete place</button>
-                                <button class="btn btn--edit-place">Edit place</button>
+                                <button class="btn btn--delete-place"><i class="icon icon-trash-2"></i> <span class="btn-text">Delete place</span></button>
+                                <button class="btn btn--edit-place"><i class="icon icon-pen-angled"></i> <span class="btn-text">Edit place</span></button>
                             </div>
                         </div>
                         `;
@@ -62,7 +62,7 @@ function createAddingForm() {
                         <input name="lat" type="text" placeholder="${place.location[0]}" class="input place__lat">
                         <input name="lng" type="text" placeholder="${place.location[1]}" class="input place__lng">
                     </div>
-                    <button class="btn btn--save btn--save-added-place">Save adding place</button>`;
+                    <button class="btn btn--save btn--save-added-place">Add place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -86,7 +86,7 @@ function createEditingForm(index, places) {
                         <input name="lat" type="text" value="${place.location[0]}" class="input place__lat">
                         <input name="lng" type="text" value="${place.location[1]}" class="input place__lng">
                     </div>
-                    <button type="button" class="btn btn--save btn--save-edited-place">Save editing place</button>`;
+                    <button type="button" class="btn btn--save btn--save-edited-place">Save place</button>`;
     elemForm.appendChild(form);
 }
 

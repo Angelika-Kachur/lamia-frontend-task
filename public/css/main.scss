@@ -214,6 +214,24 @@ body {
 			padding: 10px;
 			margin: 0 10px 10px;
 			border: solid 1px $gray-color;
+
+			.btn {
+				@include for-phone {
+					padding: 5px;
+				}
+			}
+
+			.icon {
+				@include for-phone {
+					font-size: 20px;
+				}
+			}
+
+			.btn-text {
+				@include for-phone {
+					display: none;
+				}
+			}
 		}
 
 		&__btns {

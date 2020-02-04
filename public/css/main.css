@@ -194,6 +194,21 @@ body {
   margin: 0 10px 10px;
   border: solid 1px #ccc;
 }
+@media (max-width: 768px) {
+  #places__list .place__box .btn {
+    padding: 5px;
+  }
+}
+@media (max-width: 768px) {
+  #places__list .place__box .icon {
+    font-size: 20px;
+  }
+}
+@media (max-width: 768px) {
+  #places__list .place__box .btn-text {
+    display: none;
+  }
+}
 #places__list .place__btns {
   margin: 10px -10px -10px;
   display: flex;
