@@ -4,9 +4,6 @@
 let xhr = new XMLHttpRequest();
 const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
-let elemForm = doc.querySelector('#places__form-holder');
-let elemPopup = doc.querySelector('.popup');
-let btnClosePopup = doc.querySelector('.close-popup');
 let btnAddPlace = doc.querySelector('.btn--add-place');
 
 //Render All Places
@@ -47,7 +44,7 @@ function createAddingForm() {
         'Longitude'
     ]
     place.keyWords = "Your keywords here"
-
+    let elemForm = doc.querySelector('#places__form-holder');
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
     form.setAttribute('data-placeId', -1);
@@ -72,6 +69,7 @@ function createAddingForm() {
 //Create Editing Form
 function createEditingForm(index, places) {
     let place = places[index];
+    let elemForm = doc.querySelector('#places__form-holder');
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
     form.setAttribute('data-placeId', place.id);
@@ -95,17 +93,12 @@ function createEditingForm(index, places) {
 //Add New Place
 function createNewPlace() {
     event.preventDefault();
-    console.log('createNewPlace');
     postPlace();
-    // getPlaces();
 }
 
 //Edit Specific Place
 function saveEditedPlace(places, placeId) {
     // event.preventDefault();
-    console.log('Edit Specific Place');
-    console.log('placeId ', placeId)
-    console.log('Specific Edeted Place ', places[placeId])
     // renderPlaces();
 }
 
@@ -122,7 +115,6 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
-        // console.log(responseObj.places);
         renderPlaces(responseObj.places);
     };
 }
@@ -137,7 +129,6 @@ function postPlace() {
     xhr.open('POST', '/place');
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
-    console.log(json)
 }
 
 //GET Specific Place to edit it
@@ -146,9 +137,7 @@ function getSpecificPlace(placeId) {
     xhr.responseType = 'json';
     xhr.send();
     xhr.onload = function() {
-        console.log('xhr.response ', xhr.response);
         let responseObj = xhr.response;
-        console.log('specific place: ', responseObj.places[placeId])
         createEditingForm(placeId, responseObj.places)
     };
 }
@@ -160,7 +149,6 @@ function putSpecificPlace(placeId) {
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
     let json = JSON.stringify(object);
-    console.log(json)
 
     xhr.open('PUT', '/place', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -168,33 +156,18 @@ function putSpecificPlace(placeId) {
     
     xhr.onload = function() {
         let responseObj = xhr.response;
-        // console.log('xhr.response ', xhr.response);
-        console.log('xhr.response ', xhr.response);
-        console.log('specific place: ', responseObj.places[placeId])
         saveEditedPlace(responseObj, placeId)
         renderPlaces(responseObj.places);
-        // console.log('responseObj ', responseObj);
     };
     xhr.send(json);
 }
 
 //DELETE Specific Place
 function deleteSpecificPlace(placeId) {
-    console.log(placeId);
     xhr.open('DELETE', '/place/'+placeId);
     xhr.responseType = 'json';
     xhr.send();
 }
-
-// function deleteSpecificPlace(placeId) {
-//     console.log(placeId);
-//     xhr.open('GET', '/placed?id='+placeId);
-//     xhr.responseType = 'json';
-//     xhr.send();
-// }
-
-
-
 
 
 
@@ -230,7 +203,6 @@ doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--save-edited-place')) {
         let specificPlace = event.target.closest('.places__form');
         let placeId = specificPlace.getAttribute('data-placeid');
-        console.log('You clicked on save edeted btn');
         putSpecificPlace(placeId);
         hidePopup();
     }
@@ -239,7 +211,6 @@ doc.addEventListener('click', function() {
 //Delete Specific Place
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('btn--delete-place')) {
-        console.log("Delete Specific Place");
         let specificPlace = event.target.closest('.place');
         let placeId = specificPlace.getAttribute('data-placeid');
         deleteSpecificPlace(placeId);
@@ -247,18 +218,22 @@ doc.addEventListener('click', function() {
 });
 
 function showPopup() {
+    let elemPopup = doc.querySelector('.popup');
     elemPopup.classList.add('popup--open');
 }
 
 function hidePopup() {
+    let elemPopup = doc.querySelector('.popup');
     elemPopup.classList.remove('popup--open');
 }
 
-btnClosePopup.addEventListener('click', function() {
-    hidePopup();
+doc.addEventListener('click', function() {
+    if (event.target.classList.contains('close-popup')) {
+        hidePopup();
+    }
 });
 
-elemPopup.addEventListener('click', function(e) {
+doc.addEventListener('click', function() {
     if(event.target.classList.contains('popup')) {
         hidePopup();
     }
