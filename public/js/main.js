@@ -40,6 +40,7 @@ function createMarker(location, title) {
     console.log(marker)
 }
 
+
 function renderPlacesOnMap(places) {
     console.log(places);
     for (let place of places) {
@@ -103,8 +104,8 @@ function createAddingForm() {
                     <input name="title" type="text" placeholder="${place.title}" class="input place__title">
                     <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="number" min="1" max="24" placeholder="10" class="input place__hoursStart">
-                        <input name="hoursEnd" type="number" min="1" max="24" placeholder="22" class="input place__hoursEnd">
+                        <input name="hoursStart" type="text" placeholder="10" class="input place__hoursStart">
+                        <input name="hoursEnd" type="text" placeholder="22" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input name="lat" type="text" placeholder="${place.location[0]}" class="input place__lat">
@@ -124,11 +125,11 @@ function createEditingForm(index, places) {
     form.setAttribute('name', 'editingForm');
     form.setAttribute('action', 'POST');
     form.classList.add('places__form');
-    form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input                          place__title">
+    form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input place__title">
                     <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="number" min="1" max="24" value="${place.openHours[0]}" class="input place__hoursStart">
-                        <input name="hoursEnd" type="number" min="1" max="24" value="${place.openHours[1]} " class="input place__hoursEnd">
+                        <input name="hoursStart" type="text" value="${place.openHours[0]}" class="input place__hoursStart">
+                        <input name="hoursEnd" type="text" value="${place.openHours[1]} " class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
                         <input name="lat" type="text" value="${place.location[0]}" class="input place__lat">
