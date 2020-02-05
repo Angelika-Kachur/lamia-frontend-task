@@ -17,32 +17,39 @@ function initMap() {
       center: helsinkiLocation
     });
 }
-
+const markers = new Map();
 //Create Markers
 function createMarker(place) {
+    if(place.isDeleted) return;
+
     let id = place.id;
     let title = place.title;
     let lat = parseFloat(place.location[0]);
     let lng = parseFloat(place.location[1]);
     let location = {lat: lat, lng: lng};
+    console.log(place.id)
+    if(!markers.get(place.id)){
+        let marker = new google.maps.Marker({
+            title: title,
+            position: location
+        });
+        marker.setMap(map);
+        // console.log(place.id)
+        markers.set(place.id,marker)
+        marker.addListener('click', function() {
+            infoWindow.open(map, marker);
+        })
 
-    let marker = new google.maps.Marker({
-        title: title,
-        position: location
-    });
-    marker.setMap(map);
+        let infoWindow= new google.maps.InfoWindow({
+            content: `<h1>${title}</h1> <h2>${id}</h2>`
+        })
 
-    let infoWindow= new google.maps.InfoWindow({
-        content: `<h1>${title}</h1> <h2>${id}</h2>`
-    })
+        if(place.isDeleted) {
+            console.log("Deleted: "+place.id)
+            marker.setMap(null);
+        }
+}
 
-    marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-    })
-    
-    if(place.isDeleted) {
-        marker.setMap(null);
-    }
 }
 
 function getLatLng() {
@@ -81,6 +88,7 @@ function renderPlaces(places) {
         li.classList.add('place');
         li.innerHTML = `<div class="place__box">
                             <div class="place__name">${place.title}</div>
+                            <div class="place__name">${place.id}</div>
                             <div class="place__description">${place.description}</div>
                             <div class="place__openHours">${place.openHours}</div>
                             <div class="place__keywords">${place.keyWords}</div> 
@@ -177,19 +185,25 @@ function saveEditedPlace(places, placeId) {
 
 //GET all Places to render on the page
 function getPlaces() {
-    xhr.open('GET', '/places');
-    xhr.responseType = 'json';
-    xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
         // console.log(responseObj.places);
         renderPlaces(responseObj.places);
         renderPlacesOnMap(responseObj.places);
     };
+    xhr.open('GET', '/places');
+    xhr.responseType = 'json';
+    xhr.send();
+   
 }
 
 //POST New Place to Places
 function postPlace() {
+    xhr.onload = function() {
+        let responseObj = xhr.response;
+        renderPlaces(responseObj.places);
+        renderPlacesOnMap(responseObj.places);
+    };
     let formData = new FormData(document.forms.addingForm);
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
@@ -201,38 +215,51 @@ function postPlace() {
 
 //GET Specific Place to edit it
 function getSpecificPlace(placeId) {
-    xhr.open('GET', '/place');
-    xhr.responseType = 'json';
-    xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
         createEditingForm(placeId, responseObj.places)
     };
+    xhr.open('GET', '/place');
+    xhr.responseType = 'json';
+    xhr.send();
+   
 }
 
 //PUT Specific Place to save it after editing
 function putSpecificPlace(placeId) {
+       xhr.onload = function() {
+        let responseObj = xhr.response;
+        saveEditedPlace(responseObj, placeId)
+        renderPlaces(responseObj.places);
+        renderPlacesOnMap(responseObj.places);
+    };
     let formData = new FormData(document.forms.editingForm);
     formData.append('placeId', placeId);
     let object = {};
     formData.forEach((value, key) => {object[key] = value});
     let json = JSON.stringify(object);
 
+    let lat = parseFloat(object.lat);
+    let lng = parseFloat(object.lng);
+    let location = {lat: lat, lng: lng}
+    
+    let marker = markers.get(parseInt(placeId)).setPosition(location);
+    markers.set(parseInt(placeId),marker)
+
     xhr.open('PUT', '/place', true);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.responseType = 'json';
     
-    xhr.onload = function() {
-        let responseObj = xhr.response;
-        saveEditedPlace(responseObj, placeId)
-        renderPlaces(responseObj.places);
-        renderPlacesOnMap(responseObj.places);
-    };
+ 
     xhr.send(json);
 }
 
 //DELETE Specific Place
 function deleteSpecificPlace(placeId) {
+    markers.get(parseInt(placeId)).setMap(null);
+    xhr.onload = function() {
+        renderPlaces(xhr.response.places);
+    }
     xhr.open('DELETE', '/place/'+placeId);
     xhr.responseType = 'json';
     xhr.send();
