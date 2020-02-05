@@ -201,6 +201,7 @@ function getPlaces() {
 //POST New Place to Places
 function postPlace() {
     let xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
     xhr.onload = function() {
         let responseObj = xhr.response;
         renderPlaces(responseObj.places);
