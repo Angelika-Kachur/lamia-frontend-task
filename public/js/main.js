@@ -5,27 +5,26 @@ let xhr = new XMLHttpRequest();
 const doc = document;
 let elemPlaces = doc.querySelector('#places__list');
 let btnAddPlace = doc.querySelector('.btn--add-place');
-
-//Render Places on Map
 let map;
 
+/* MAP */
+
+//Init Map
 function initMap() {
-    var myLatLng = { lat: 60.16901644495906, lng: 24.93797779083252 };
-  
+    var helsinkiLocation = { lat: 60.16901644495906, lng: 24.93797779083252 };
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 13,
-      center: myLatLng
+      center: helsinkiLocation
     });
 }
 
-
+//Create Markers
 function createMarker(place) {
     let id = place.id;
     let title = place.title;
     let lat = parseFloat(place.location[0]);
     let lng = parseFloat(place.location[1]);
     let location = {lat: lat, lng: lng};
-    // console.log(location);
 
     let marker = new google.maps.Marker({
         title: title,
@@ -46,25 +45,25 @@ function createMarker(place) {
     }
 }
 
-
- 
+//CreateMap
 function createMap() {
-    var myLatLng2 = { lat: 60.17130667985175, lng: 24.94673252105713 };
     initMap();
     getPlaces();
 }
 
-
 //Render All Places on Map
 function renderPlacesOnMap(places) {
+    console.log('render places on map', places);
     for (let place of places) {
         createMarker(place);
     }
 }
 
+/* PLACES */
+
 //Render All Places
 function renderPlaces(places) {
-    console.log(places);
+    console.log('render places', places);
     elemPlaces.innerHTML = '';
     for (let place of places) {
         let li = doc.createElement('li');
@@ -160,7 +159,7 @@ function saveEditedPlace(places, placeId) {
     renderPlacesOnMap(places.places);
 }
 
-
+/* SERVER REQUESTS */
 
 //GET all Places to render on the page
 function getPlaces() {
@@ -225,10 +224,7 @@ function deleteSpecificPlace(placeId) {
     xhr.send();
 }
 
-
-
-
-
+/* EVENT LISTENERS */
 
 //Create 'Adding Form' on Btn Click
 btnAddPlace.addEventListener('click', function() {
@@ -273,11 +269,15 @@ doc.addEventListener('click', function() {
     }
 });
 
+/* POPUP */
+
+//Show Popup
 function showPopup() {
     let elemPopup = doc.querySelector('.popup');
     elemPopup.classList.add('popup--open');
 }
 
+//Hide Popup
 function hidePopup() {
     let elemPopup = doc.querySelector('.popup');
     elemPopup.classList.remove('popup--open');
