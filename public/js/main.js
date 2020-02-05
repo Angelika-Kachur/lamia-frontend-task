@@ -33,7 +33,6 @@ function createMarker(place) {
             position: location
         });
         marker.setMap(map);
-        console.log(place.id)
 
         markers.set(parseInt(place.id),marker)
         marker.addListener('click', function() {
@@ -45,7 +44,6 @@ function createMarker(place) {
         })
 
         if(place.isDeleted) {
-            console.log("Deleted: "+place.id)
             marker.setMap(null);
         }
     }
@@ -69,7 +67,6 @@ function createMap() {
 
 //Render All Places on Map
 function renderPlacesOnMap(places) {
-    console.log('render places on map', places);
     for (let place of places) {
         createMarker(place);
     }
@@ -79,7 +76,6 @@ function renderPlacesOnMap(places) {
 
 //Render All Places
 function renderPlaces(places) {
-    console.log('render places', places);
     elemPlaces.innerHTML = '';
     for (let place of places) {
         let li = doc.createElement('li');
@@ -188,7 +184,6 @@ function getPlaces() {
     let xhr = new XMLHttpRequest();
     xhr.onload = function() {
         let responseObj = xhr.response;
-        // console.log(responseObj.places);
         renderPlaces(responseObj.places);
         renderPlacesOnMap(responseObj.places);
     };

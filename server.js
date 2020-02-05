@@ -6,8 +6,6 @@ let port = 9000
 //Places Data
 let placesJson = require("./data.json");
 let places = placesJson.places;
-// console.log(places);
-
 let currentId = 3;
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -22,13 +20,11 @@ app.use(function(req, res, next) {
 //GET All Places to render on the page
 app.get('/places', function(req, res) {
   res.send({places: places});
-  console.log('app.get all')
 });
 
 //GET Specific Place to edit it
 app.get('/place', function(req, res) {
   res.send({places: places});
-  console.log('app.get one')
 });
 
 //PUT Specific Place to save it after editing
@@ -42,7 +38,6 @@ app.put('/place', function(req, res) {
     online: false,
     keyWords: ['pizza']
   }
-  console.log('app.put')
   places[req.body.placeId] = newPlace;
   res.send({places: places});
 });
@@ -59,7 +54,6 @@ app.post('/place', function (req, res) {
     keyWords: ['pizza']
   }
   places.push(newPlace);
-  console.log('app.post')
   res.send({places: places});
 })
 
@@ -67,19 +61,10 @@ app.post('/place', function (req, res) {
 app.delete('/place/:id', function (req, res) {
   let id = req.params.id;
   places[id].isDeleted = true;
-  console.log('app.delete')
   res.send({places: places});
 })
 
-// app.get('/placed', function (req, res) {
-
-//   let id = req.query.id;
-//   console.log(id)
-//   places[id].isDeleted = true;
-//   res.send({places: places});
-// })
-
 app.listen(port, function () {
-  console.log('We are listening on port ' + port)
+  console.log('Your Places app is running on port ' + port)
 })
   
