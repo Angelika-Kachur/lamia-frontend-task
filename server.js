@@ -22,13 +22,13 @@ app.use(function(req, res, next) {
 //GET All Places to render on the page
 app.get('/places', function(req, res) {
   res.send({places: places});
-  console.log('Succesfully GET all!');
+  console.log('app.get all')
 });
 
 //GET Specific Place to edit it
 app.get('/place', function(req, res) {
   res.send({places: places});
-  console.log('Succesfully GET specific!');
+  console.log('app.get one')
 });
 
 //PUT Specific Place to save it after editing
@@ -42,6 +42,7 @@ app.put('/place', function(req, res) {
     online: false,
     keyWords: ['pizza']
   }
+  console.log('app.put')
   places[req.body.placeId] = newPlace;
   res.send({places: places});
 });
@@ -58,6 +59,7 @@ app.post('/place', function (req, res) {
     keyWords: ['pizza']
   }
   places.push(newPlace);
+  console.log('app.post')
   res.send({places: places});
 })
 
@@ -65,6 +67,7 @@ app.post('/place', function (req, res) {
 app.delete('/place/:id', function (req, res) {
   let id = req.params.id;
   places[id].isDeleted = true;
+  console.log('app.delete')
   res.send({places: places});
 })
 

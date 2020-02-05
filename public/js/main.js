@@ -16,47 +16,55 @@ function initMap() {
       zoom: 13,
       center: myLatLng
     });
-  
-    // var marker = new google.maps.Marker({
-    //   position: myLatLng,
-    //   map: map,
-    //   title: 'Arnolds'
-    // });
-
 }
+
+
+function createMarker(place) {
+    let id = place.id;
+    let title = place.title;
+    let lat = parseFloat(place.location[0]);
+    let lng = parseFloat(place.location[1]);
+    let location = {lat: lat, lng: lng};
+    // console.log(location);
+
+    let marker = new google.maps.Marker({
+        title: title,
+        position: location
+    });
+    marker.setMap(map);
+
+    let infoWindow= new google.maps.InfoWindow({
+        content: `<h1>${title}</h1> <h2>${id}</h2>`
+    })
+
+    marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+    })
+    
+    if(place.isDeleted) {
+        marker.setMap(null);
+    }
+}
+
+
  
 function createMap() {
     var myLatLng2 = { lat: 60.17130667985175, lng: 24.94673252105713 };
     initMap();
-    // createMarker(myLatLng2);
-}
-
-function createMarker(location, title) {
-    let marker = new google.maps.Marker({
-        position: location,
-        title: title
-    });
-    marker.setMap(map);
-    console.log(marker)
+    getPlaces();
 }
 
 
+//Render All Places on Map
 function renderPlacesOnMap(places) {
-    console.log(places);
     for (let place of places) {
-
-        if(place.isDeleted) {
-            marker.setMap(null);
-        } else {
-            let title =  place.title;
-            let location =  { lat: parseFloat(place.location[0]), lng: parseFloat(place.location[1]) }
-            createMarker(location, title);
-        }
+        createMarker(place);
     }
 }
 
 //Render All Places
 function renderPlaces(places) {
+    console.log(places);
     elemPlaces.innerHTML = '';
     for (let place of places) {
         let li = doc.createElement('li');
@@ -147,13 +155,10 @@ function createNewPlace() {
 
 //Edit Specific Place
 function saveEditedPlace(places, placeId) {
-    // event.preventDefault();
-    // renderPlaces();
+    event.preventDefault();
+    renderPlaces(places.places);
+    renderPlacesOnMap(places.places);
 }
-
-
-
-
 
 
 
@@ -164,12 +169,11 @@ function getPlaces() {
     xhr.send();
     xhr.onload = function() {
         let responseObj = xhr.response;
-        console.log(responseObj.places);
+        // console.log(responseObj.places);
         renderPlaces(responseObj.places);
         renderPlacesOnMap(responseObj.places);
     };
 }
-getPlaces();
 
 //POST New Place to Places
 function postPlace() {
