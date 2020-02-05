@@ -222,12 +222,16 @@ body {
 			}
 
 			.icon {
+				pointer-events: none;
+				
 				@include for-phone {
 					font-size: 20px;
 				}
 			}
 
 			.btn-text {
+				pointer-events: none;
+
 				@include for-phone {
 					display: none;
 				}

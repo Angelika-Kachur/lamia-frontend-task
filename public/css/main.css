@@ -199,10 +199,16 @@ body {
     padding: 5px;
   }
 }
+#places__list .place__box .icon {
+  pointer-events: none;
+}
 @media (max-width: 768px) {
   #places__list .place__box .icon {
     font-size: 20px;
   }
+}
+#places__list .place__box .btn-text {
+  pointer-events: none;
 }
 @media (max-width: 768px) {
   #places__list .place__box .btn-text {
