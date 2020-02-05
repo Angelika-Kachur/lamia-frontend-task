@@ -45,10 +45,19 @@ function createMarker(place) {
     }
 }
 
+function getLatLng() {
+    google.maps.event.addListener(map, 'click', function(event) {
+        let location = {lat: event.latLng.lat(), lng: event.latLng.lng()}
+        createAddingForm(location);
+        showPopup();
+    })
+}
+
 //CreateMap
 function createMap() {
     initMap();
     getPlaces();
+    getLatLng();
 }
 
 //Render All Places on Map
@@ -86,18 +95,23 @@ function renderPlaces(places) {
 }
 
 //Create Adding Form
-function createAddingForm() {
+function createAddingForm(location) {
     let place = {}
     place.title = "Title"
     place.description = "Description"
-    place.location = "Location"
+    if(location) {
+        place.location = [
+            location.lat, location.lng
+        ]
+    } else {
+        place.location = [
+            'Latitude',
+            'Longitude'
+        ]
+    }
     place.openHours =  [
         'Open Hours - start',
         'Open Hours - end'
-    ]
-    place.location = [
-        'Latitude',
-        'Longitude'
     ]
     place.keyWords = "Your keywords here"
     let elemForm = doc.querySelector('#places__form-holder');
@@ -108,15 +122,15 @@ function createAddingForm() {
     form.setAttribute('action', 'POST');
     form.classList.add('places__form');
     form.innerHTML = `<h2 class="form__title">Add new Place</h2>
-                    <input name="title" type="text" placeholder="${place.title}" class="input place__title">
-                    <textarea name="description" type="text" placeholder="${place.description}" class="textarea place__description"></textarea>
+                    <input name="title" type="text" value="${place.title}" class="input place__title">
+                    <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
-                        <input name="hoursStart" type="text" placeholder="10" class="input place__hoursStart">
-                        <input name="hoursEnd" type="text" placeholder="22" class="input place__hoursEnd">
+                        <input name="hoursStart" type="text" value="10" class="input place__hoursStart">
+                        <input name="hoursEnd" type="text" value="22" class="input place__hoursEnd">
                     </div>
                     <div class="inputs-holder">
-                        <input name="lat" type="text" placeholder="${place.location[0]}" class="input place__lat">
-                        <input name="lng" type="text" placeholder="${place.location[1]}" class="input place__lng">
+                        <input name="lat" type="text" value="${place.location[0]}" class="input place__lat">
+                        <input name="lng" type="text" value="${place.location[1]}" class="input place__lng">
                     </div>
                     <button class="btn btn--save btn--save-added-place">Add place</button>`;
     elemForm.appendChild(form);
@@ -286,11 +300,7 @@ function hidePopup() {
 doc.addEventListener('click', function() {
     if (event.target.classList.contains('close-popup')) {
         hidePopup();
-    }
-});
-
-doc.addEventListener('click', function() {
-    if(event.target.classList.contains('popup')) {
+    } else if (event.target.classList.contains('popup')) {
         hidePopup();
     }
 });
