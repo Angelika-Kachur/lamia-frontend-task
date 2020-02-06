@@ -102,6 +102,12 @@ $font-family-primary: 'Lato', sans-serif;
 	}
 }
 
+@mixin for-phone-xs {
+	@media (max-width: 500px) {
+	  @content;
+	}
+}
+
 /* General Styles */
 * {
 	box-sizing: border-box;
@@ -118,6 +124,13 @@ body {
 	margin: 0 auto;
 	background: $gray-color;
 	height: 100vh;
+	border-left: solid 1px $gray-color;
+	border-right: solid 1px $gray-color;
+
+	@include for-phone-xs {
+		border: none;
+		flex-direction: column;
+	}
 }
 
 /* Title */
@@ -127,28 +140,46 @@ body {
 	font-style: italic;
 	background: #fff8dc;
 	text-align: center;
+
+	.text {
+		@include for-phone {
+			display: none;
+		}
+	}
 }
 
 /* Map */
 #map {
-	height: calc(100vh - 108px);
+	height: calc(100vh - 48px); //height of map title
+
+	@include for-phone-xs {
+		height: 300px;
+	}
 }
 
 .map {
-	width: 75%;
+	width: 70%;
 
 	@include for-tablet {
-		width: 60%;
+		width: 65%;
+	}
+
+	@include for-phone-xs {
+		width: 100%;
 	}
 }
 
 /* Places */
 .places {
-	width: 25%;
+	width: 30%;
 	background: $white-color;
 
 	@include for-tablet {
-		width: 40%;
+		width: 35%;
+	}
+
+	@include for-phone-xs {
+		width: 100%;
 	}
 
 	.btn--add-place {
@@ -185,12 +216,18 @@ body {
 	}
 }
 
+/* Places List */
 #places__list {
 	list-style: none;
 	margin: 0;
 	padding: 20px 0 0;
-	height: calc(100vh - 108px);
-    overflow: auto;
+	height: calc(100vh - 108px); //height of places title and add button
+	overflow: auto;
+	
+	@include for-phone-xs {
+		height: auto;
+		margin: 0 0 30px;
+	}
 
 	.place {
 		width: 100%;
@@ -238,6 +275,10 @@ body {
 			}
 		}
 
+		&__keywords {
+			word-wrap: break-word;
+		}
+
 		&__btns {
 			margin: 10px -10px -10px;
 			display: flex;
@@ -249,6 +290,7 @@ body {
 	}
 }
 
+/*  Forms */
 .input {
 	border: solid 1px $gray-color;
 	font-size: 14px;
@@ -257,12 +299,17 @@ body {
 	border: solid 1px $gray-color;
 	min-height: 100px;
 	font-size: 14px;
+
+	@include for-phone-xs {
+		min-height: 60px;
+	}
 }
 
+/* Buttons */
 .btn {
 	cursor: pointer;
 	display: block;
-	padding: 10px;
+	padding: 10px 5px;
 	border: solid 1px $gray-color;
 	background: transparent;
 	transition: all ease .3s;
@@ -310,10 +357,13 @@ body {
 	display: none;
 }
 
+/* Deleted places */
 [data-isdeleted="true"] {
 	display: none;
 }
 
+
+/* Popup */
 .popup {
 	display: none;
 	
@@ -335,6 +385,13 @@ body {
 			left: 50%;
 			transform: translate(-50%, -50%);
 			border: solid 1px $gray-color;
+
+			@include for-phone-xs {
+				left: 0;
+				transform: translate(0, -50%);
+				max-width: 600px;
+				margin: 0 10px;
+			}
 		}
 	
 		&__form {
@@ -343,6 +400,7 @@ body {
 	}
 
 	.form__title {
+		padding: 10px;
 		margin: -10px -10px 10px;
 		background: $secondary-color;
 		color: $white-color;
@@ -359,6 +417,11 @@ body {
 		background: $warning-color;
 		border: solid 1px $gray-color;
 		border-radius: 50px;
+
+		@include for-phone-xs {
+			top: -35px;
+			right: -5px;
+		}
 
 		&:before, 
 		&:after {

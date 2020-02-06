@@ -84,9 +84,8 @@ function renderPlaces(places) {
         li.classList.add('place');
         li.innerHTML = `<div class="place__box">
                             <div class="place__name">${place.title}</div>
-                            <div class="place__name">${place.id}</div>
                             <div class="place__description">${place.description}</div>
-                            <div class="place__openHours">${place.openHours}</div>
+                            <div class="place__openHours">${place.openHours[0]}:00 - ${place.openHours[1]}:00</div>
                             <div class="place__keywords">${place.keyWords}</div> 
                             <div class="place__btns">
                                 <button class="btn btn--delete-place"><i class="icon icon-trash-2"></i> <span class="btn-text">Delete place</span></button>
@@ -101,8 +100,8 @@ function renderPlaces(places) {
 //Create Adding Form
 function createAddingForm(location) {
     let place = {}
-    place.title = "Title"
-    place.description = "Description"
+    place.title = "Place Title"
+    place.description = "Place Description"
     if(location) {
         place.location = [
             location.lat, location.lng
@@ -136,7 +135,7 @@ function createAddingForm(location) {
                         <input name="lat" type="text" value="${place.location[0]}" class="input place__lat">
                         <input name="lng" type="text" value="${place.location[1]}" class="input place__lng">
                     </div>
-                    <button class="btn btn--save btn--save-added-place">Add place</button>`;
+                    <button type="button" class="btn btn--save btn--save-added-place">Add place</button>`;
     elemForm.appendChild(form);
 }
 
@@ -150,7 +149,8 @@ function createEditingForm(index, places) {
     form.setAttribute('name', 'editingForm');
     form.setAttribute('action', 'POST');
     form.classList.add('places__form');
-    form.innerHTML = `<input name="title" type="text" value="${place.title}" class="input place__title">
+    form.innerHTML = `<h2 class="form__title">Edit Place</h2>
+                    <input name="title" type="text" value="${place.title}" class="input place__title">
                     <textarea name="description" type="text" class="textarea place__description">${place.description}</textarea>
                     <div class="inputs-holder">
                         <input name="hoursStart" type="text" value="${place.openHours[0]}" class="input place__hoursStart">
