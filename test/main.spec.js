@@ -7,26 +7,20 @@ describe("GET /places", function() {
   it("should return places object", function(done){
     supertest(app)
       .get("/places")
-      .expect(200)
       .expect('Content-Type', /json/)
-      .expect(placesJson, done)
+      .expect(200, placesJson, done)
   });
-});
 
-/* GET place */
-describe("GET /place/id", function() {
+  /* GET place */
   it("should return correct place", function(done) {
     let placeId = 2;
     supertest(app)
       .get(`/place/${placeId}`)
-      .expect(200)
       .expect('Content-Type', /json/)
-      .expect(placesJson.places[placeId], done)
+      .expect(200, placesJson.places[placeId], done)
   });
-});
 
-/* GET place with 404 */
-describe("GET /place/id", function() {
+  /* GET place with 404 */
   it("should return 404 on missing id", function(done) {
     supertest(app)
       .get(`/place/${9}`)
@@ -57,12 +51,10 @@ describe("PUT /place/id", function() {
   it("should return places with correct edited place", function(done) {
     let placeId = 1;
     let testPlace = placesJson.places[placeId];
-    testPlace.title = "sanyasha I love you"
+    testPlace.title = "Edited title"
     let responseCheck = res => {
       let places = res.body.places;
-      console.log('places[placeId]', places[placeId]);
-      console.log('testPlace', testPlace);
-      if(places[placeId].title !== testPlace.title) throw new Error("Objects are not equals!");
+      if(places[placeId].title !== testPlace.title) throw new Error("Object is not edited correct!");
     }
     supertest(app)
       .put(`/place/${placeId}`)
@@ -73,16 +65,19 @@ describe("PUT /place/id", function() {
   });
 });
 
-// /* DELETE place */
-// describe("DELETE /place/:id", function() {
-//   it("it should has status code 200 if   new place", function(done) {
-//     supertest(app)
-//       .post("/place/:id")
-//       .send({"title":"Place Title","description":"Place Description","hoursStart":"10","hoursEnd":"22","lat":"60.1733711368774","lng":"24.986592829227448"})
-//       .expect(200)
-//       .end(function(err, res){
-//         if (err) done(err);
-//         done();
-//       });
-//   });
-// });
+/* DELETE place */
+describe("DELETE /place/id", function() {
+  it("should return places with value isDeleted true", function(done) {
+    let placeId = 1;
+    let responseCheck = res => {
+      let places = res.body.places;
+      if(!places[placeId].isDeleted) throw new Error("Object doesn't have value isDeleted true!");
+    }
+    supertest(app)
+      .delete(`/place/${placeId}`)
+      .send(placesJson.places[placeId])
+      .expect('Content-Type', /json/)
+      .expect(responseCheck)
+      .end(done);
+  });
+});

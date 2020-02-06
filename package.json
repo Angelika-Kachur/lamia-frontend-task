@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "mocha",
+    "test": "mocha --exit",
     "sass": "sass --watch public/css/main.scss public/css/main.css"
-  }
+  } 
 }
