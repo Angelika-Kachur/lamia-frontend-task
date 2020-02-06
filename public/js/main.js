@@ -140,8 +140,7 @@ function createAddingForm(location) {
 }
 
 //Create Editing Form
-function createEditingForm(index, places) {
-    let place = places[index];
+function createEditingForm(place) {
     let elemForm = doc.querySelector('#places__form-holder');
     elemForm.innerHTML = '';
     let form = doc.createElement('form');
@@ -215,10 +214,10 @@ function postPlace() {
 function getSpecificPlace(placeId) {
     let xhr = new XMLHttpRequest();
     xhr.onload = function() {
-        let responseObj = xhr.response;
-        createEditingForm(placeId, responseObj.places)
+        let place = xhr.response;
+        createEditingForm(place)
     };
-    xhr.open('GET', '/place');
+    xhr.open('GET', `/place/${placeId}`);
     xhr.responseType = 'json';
     xhr.send();
    
@@ -246,7 +245,7 @@ function putSpecificPlace(placeId) {
     let marker = markers.get(parseInt(placeId));
     marker.setPosition(location);
 
-    xhr.open('PUT', '/place', true);
+    xhr.open('PUT', `/place/${placeId}`);
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.responseType = 'json';
     xhr.send(json);

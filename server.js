@@ -23,23 +23,10 @@ app.get('/places', function(req, res) {
 });
 
 //GET Specific Place to edit it
-app.get('/place', function(req, res) {
-  res.send({places: places});
-});
-
-//PUT Specific Place to save it after editing
-app.put('/place', function(req, res) {
-  let newPlace = {
-    id: req.body.placeId,
-    title: req.body.title,
-    description: req.body.description,
-    openHours: [req.body.hoursStart, req.body.hoursEnd],
-    location: [req.body.lat, req.body.lng],
-    online: false,
-    keyWords: ['pizza']
-  }
-  places[req.body.placeId] = newPlace;
-  res.send({places: places});
+app.get('/place/:id', function(req, res) {
+  let id = req.params.id;
+  if(places[id])res.send(places[id]);
+  else res.status(404).send('Not found');
 });
 
 //POST New Place to Places
@@ -56,6 +43,23 @@ app.post('/place', function (req, res) {
   places.push(newPlace);
   res.send({places: places});
 })
+
+//PUT Specific Place to save it after editing
+app.put('/place/:id', function(req, res) {
+  let id = req.params.id;
+  if(!id == req.body.placeId) res.status(400).send('IDs are not equal!');
+  let newPlace = {
+    id: req.body.placeId,
+    title: req.body.title,
+    description: req.body.description,
+    openHours: [req.body.hoursStart, req.body.hoursEnd],
+    location: [req.body.lat, req.body.lng],
+    online: false,
+    keyWords: ['pizza']
+  }
+  places[req.body.placeId] = newPlace;
+  res.send({places: places});
+});
 
 //DELETE Specific Place to Places
 app.delete('/place/:id', function (req, res) {
