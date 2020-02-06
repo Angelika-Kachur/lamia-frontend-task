@@ -209,7 +209,6 @@ function postPlace() {
     xhr.open('POST', '/place');
     xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
     xhr.send(json);
-    console.log(json);
 }
 
 //GET Specific Place to edit it

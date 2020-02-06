@@ -1,11 +1,4 @@
-// const sum = require('./main');
-
-// test('adds 1 + 2 to equal 3', () => {
-//   expect(sum(1, 2)).toBe(3);
-// });
-
 const supertest = require('supertest')
-const assert = require('assert');
 const app = require('../server')
 
 /* GET places */
