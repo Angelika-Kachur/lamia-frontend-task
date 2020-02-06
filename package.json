@@ -8,11 +8,12 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "jest": "^25.1.0"
+    "mocha": "^7.0.1",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest --passWithNoTests",
+    "test": "mocha",
     "sass": "sass --watch public/css/main.scss public/css/main.css"
   }
 }

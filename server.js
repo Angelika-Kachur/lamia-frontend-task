@@ -65,6 +65,7 @@ app.delete('/place/:id', function (req, res) {
 })
 
 app.listen(port, function () {
-  console.log('Your Places app is running on port ' + port)
+  console.log('Your PlacesApp is running on port ' + port)
 })
-  
+
+module.exports = app;
