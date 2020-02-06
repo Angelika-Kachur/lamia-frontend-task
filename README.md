@@ -1,6 +1,5 @@
-# lamia-frontend-task
-Places
+# Places App
 
-yarn install
-nodemon server.js
-port:3000
+- yarn install
+- yarn start
+- localhost:9000
