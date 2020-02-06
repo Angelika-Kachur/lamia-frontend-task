@@ -267,10 +267,12 @@ function deleteSpecificPlace(placeId) {
 /* EVENT LISTENERS */
 
 //Create 'Adding Form' on Btn Click
-btnAddPlace.addEventListener('click', function() {
-    createAddingForm()
-    showPopup()
-});
+if(btnAddPlace){
+    btnAddPlace.addEventListener('click', function() {
+        createAddingForm()
+        showPopup()
+    });
+}
 
 //Create New Place and Send it to the Server
 doc.addEventListener('click', function() {
@@ -281,14 +283,16 @@ doc.addEventListener('click', function() {
 });
 
 //Create 'Editing Form' on Btn Click
-elemPlaces.addEventListener('click', function() {
-    if (event.target.classList.contains('btn--edit-place')) {
-        let specificPlace = event.target.closest('.place');
-        let placeId = specificPlace.getAttribute('data-placeid');
-        getSpecificPlace(placeId);
-        showPopup();
-    }
-});
+if(elemPlaces){
+    elemPlaces.addEventListener('click', function() {
+        if (event.target.classList.contains('btn--edit-place')) {
+            let specificPlace = event.target.closest('.place');
+            let placeId = specificPlace.getAttribute('data-placeid');
+            getSpecificPlace(placeId);
+            showPopup();
+        }
+    });
+}
 
 //Save Edited Place and Send it to the Server
 doc.addEventListener('click', function() {
@@ -330,3 +334,9 @@ doc.addEventListener('click', function() {
         hidePopup();
     }
 });
+
+//Test Sum example
+function sum(a, b) {
+    return a + b;
+}
+module.exports = sum;

@@ -6,5 +6,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --passWithNoTests",
+    "sass": "sass --watch public/css/main.scss public/css/main.css"
   }
 }
