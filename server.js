@@ -68,7 +68,7 @@ app.delete('/place/:id', function (req, res) {
   res.send({places: places});
 })
 
-app.listen(port, function () {
+app.listen(process.env.PORT || port, function () {
   console.log('Your PlacesApp is running on port ' + port)
 })
 
