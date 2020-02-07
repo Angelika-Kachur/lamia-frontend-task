@@ -102,12 +102,6 @@ body {
   border-left: solid 1px #393938eb;
   border-right: solid 1px #393938eb;
 }
-@media (max-width: 500px) {
-  .wrapper {
-    border: none;
-    flex-direction: column;
-  }
-}
 
 /* Header */
 .header {
@@ -155,6 +149,12 @@ body {
 .main {
   display: flex;
   background: #ccc;
+}
+@media (max-width: 500px) {
+  .main {
+    border: none;
+    flex-direction: column;
+  }
 }
 
 /* Map */

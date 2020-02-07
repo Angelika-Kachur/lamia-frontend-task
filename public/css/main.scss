@@ -125,11 +125,6 @@ body {
 	height: 100vh;
 	border-left: solid 1px $dark-color;
 	border-right: solid 1px $dark-color;
-
-	@include for-phone-xs {
-		border: none;
-		flex-direction: column;
-	}
 }
 
 /* Header */
@@ -183,6 +178,12 @@ body {
 .main {
 	display: flex;
 	background: $gray-color;
+
+	
+	@include for-phone-xs {
+		border: none;
+		flex-direction: column;
+	}
 }
 
 /* Map */

@@ -40,7 +40,7 @@ function createMarker(place) {
         })
 
         let infoWindow= new google.maps.InfoWindow({
-            content: `<h1>${title}</h1> <h2>${id}</h2>`
+            content: `<h1>${title}</h1>`
         })
 
         if(place.isDeleted) {
