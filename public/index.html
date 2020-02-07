@@ -15,16 +15,24 @@
 
 <body>
 	<div class="wrapper">
-		<div class="map">
-			<h2 class="title--main"> <i class="icon-earth"></i>	<span class="text">Map</span></h2>
-			<div id="map"></div>
-		</div>
-
-		<div class="places">
-			<h2 class="title--main"> <i class="icon-map"></i> <span class="text">Places</span></h2>
-			<button id="btn--add-place" class="btn btn--add-place"> <i class="icon-add"></i> Add new place</button>
-			<ul id="places__list"></ul>
-		</div>
+		<header class="header">
+			<h2 class="title"> <i class="icon icon-map"></i> <span class="text">Places</span></h2>
+		</header>
+		<main class="main">
+			<div class="map">
+				<div id="map"></div>
+			</div>
+	
+			<div class="places">
+				<button id="btn--add-place" class="btn btn--add-place"> <i class="icon icon-add"></i> <span class="btn-text">Add new place</span></button>
+				<ul id="places__list"></ul>
+			</div>
+		</main>
+		<footer class="footer">
+			<div class="text">
+				Copyright &copy; 2020 <a class="link" href="https://angelika-kachur.herokuapp.com/" target="_blank" rel=”noopener noreferrer”>Design</a>
+			</div>
+		</footer>
 	</div>
 
 	<!-- Google Maps scripts. -->

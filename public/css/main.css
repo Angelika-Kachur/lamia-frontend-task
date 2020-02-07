@@ -91,18 +91,16 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
+  background: #ccc;
   margin: 0;
 }
 
 .wrapper {
-  display: flex;
-  display: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  background: #ccc;
   height: 100vh;
-  border-left: solid 1px #ccc;
-  border-right: solid 1px #ccc;
+  border-left: solid 1px #393938eb;
+  border-right: solid 1px #393938eb;
 }
 @media (max-width: 500px) {
   .wrapper {
@@ -111,23 +109,57 @@ body {
   }
 }
 
-/* Title */
-.title--main {
+/* Header */
+.header {
   margin: 0;
-  padding: 10px;
+  padding: 15px 20px;
   font-style: italic;
-  background: #fff8dc;
-  text-align: center;
+  background: #393938eb;
+  color: #fff;
+  max-height: 61px;
+  overflow: hidden;
+}
+.header .title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 24px;
+}
+.header .icon {
+  font-size: 27px;
 }
 @media (max-width: 768px) {
-  .title--main .text {
+  .header .text {
     display: none;
   }
 }
 
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background: #393938eb;
+  color: #fff;
+  max-height: 39px;
+  overflow: hidden;
+}
+.footer .link {
+  color: #fff;
+  text-decoration: none;
+  transition: all ease 0.3s;
+}
+.footer .link:hover {
+  opacity: 0.4;
+}
+
+/* Main */
+.main {
+  display: flex;
+  background: #ccc;
+}
+
 /* Map */
 #map {
-  height: calc(100vh - 48px);
+  height: calc(100vh - 100px);
 }
 @media (max-width: 500px) {
   #map {
@@ -167,6 +199,8 @@ body {
 .places .btn--add-place {
   width: 100%;
   margin: 0 auto;
+  padding: 14px 20px;
+  font-size: 20px;
 }
 .places__form {
   max-width: 500px;
@@ -198,7 +232,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 20px 0 0;
-  height: calc(100vh - 108px);
+  height: calc(100vh - 158px);
   overflow: auto;
 }
 @media (max-width: 500px) {
@@ -281,7 +315,9 @@ body {
 /* Buttons */
 .btn {
   cursor: pointer;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 10px 5px;
   border: solid 1px #ccc;
   background: transparent;
@@ -289,13 +325,18 @@ body {
   color: #fff;
   font-size: 16px;
 }
+.btn .icon {
+  margin: 0 5px 0 0;
+}
 .btn--add-place {
   background: #68A691;
   border: solid 1px #68A691;
-  padding: 10px 20px;
 }
 .btn--add-place:hover {
   background: #68A691;
+}
+.btn--add-place .icon {
+  font-size: 28px;
 }
 .btn--edit-place {
   background: #9DB4C0;
@@ -304,9 +345,13 @@ body {
 .btn--edit-place:hover {
   background: #9DB4C0;
 }
+.btn--edit-place .icon-pen-angled {
+  font-size: 23px;
+}
 .btn--delete-place {
   background: #694F5D;
   border: solid 1px #694F5D;
+  align-items: baseline;
 }
 .btn--delete-place:hover {
   background: #694F5D;

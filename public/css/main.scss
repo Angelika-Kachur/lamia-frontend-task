@@ -75,6 +75,7 @@ $secondary-color: #9DB4C0;
 $warning-color: #694F5D;
 $gray-color: #ccc;
 $white-color: #fff;
+$dark-color: #393938eb;
 
 /* Fonts */
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
@@ -115,17 +116,15 @@ $font-family-primary: 'Lato', sans-serif;
 body {
 	font-family: $font-family;
 	font-size: 16px;
+	background: $gray-color;
 	margin: 0;
 }
 .wrapper {
-	display: flex;
-	display: 100%;
-	max-width: 1200px;
+	max-width: 1400px;
 	margin: 0 auto;
-	background: $gray-color;
 	height: 100vh;
-	border-left: solid 1px $gray-color;
-	border-right: solid 1px $gray-color;
+	border-left: solid 1px $dark-color;
+	border-right: solid 1px $dark-color;
 
 	@include for-phone-xs {
 		border: none;
@@ -133,13 +132,25 @@ body {
 	}
 }
 
-/* Title */
-.title--main {
+/* Header */
+.header {
 	margin: 0;
-	padding: 10px;
+	padding: 15px 20px;
 	font-style: italic;
-	background: #fff8dc;
-	text-align: center;
+	background: $dark-color;
+	color: $white-color;
+	max-height: 61px;
+	overflow: hidden;
+
+	.title {
+		margin: 0;
+		font-weight: 400;
+		font-size: 24px;
+	}
+
+	.icon {
+		font-size: 27px;
+	}
 
 	.text {
 		@include for-phone {
@@ -148,9 +159,35 @@ body {
 	}
 }
 
+/* Footer */
+.footer {
+	text-align: center;
+	padding: 10px;
+	background: $dark-color;
+	color: $white-color;
+	max-height: 39px;
+	overflow: hidden;
+
+	.link {
+		color: $white-color;
+		text-decoration: none;
+		transition: all ease .3s;
+
+		&:hover {
+			opacity: .4;
+		}
+	}
+}
+
+/* Main */
+.main {
+	display: flex;
+	background: $gray-color;
+}
+
 /* Map */
 #map {
-	height: calc(100vh - 48px); //height of map title
+	height: calc(100vh - 100px); //height of header and footer
 
 	@include for-phone-xs {
 		height: 300px;
@@ -185,6 +222,8 @@ body {
 	.btn--add-place {
 		width: 100%;
 		margin: 0 auto;
+		padding: 14px 20px;
+		font-size: 20px;
 	}
 
 	&__form {
@@ -221,7 +260,7 @@ body {
 	list-style: none;
 	margin: 0;
 	padding: 20px 0 0;
-	height: calc(100vh - 108px); //height of places title and add button
+	height: calc(100vh - 158px); //height of header, footer and add button
 	overflow: auto;
 	
 	@include for-phone-xs {
@@ -308,21 +347,30 @@ body {
 /* Buttons */
 .btn {
 	cursor: pointer;
-	display: block;
+	display: flex;
+    justify-content: center;
+    align-items: center;
 	padding: 10px 5px;
 	border: solid 1px $gray-color;
 	background: transparent;
 	transition: all ease .3s;
 	color: $white-color;
 	font-size: 16px;
+	
+	.icon {
+		margin: 0 5px 0 0;
+	}
 
 	&--add-place {
 		background: $primary-color;
 		border: solid 1px $primary-color;
-		padding: 10px 20px;
 
 		&:hover {
 			background: $primary-color;
+		}
+
+		.icon {
+			font-size: 28px;
 		}
 	}
 	&--edit-place {
@@ -332,10 +380,15 @@ body {
 		&:hover {
 			background: $secondary-color;
 		}
+
+		.icon-pen-angled {
+			font-size: 23px;
+		}
 	}
 	&--delete-place {
 		background: $warning-color;
 		border: solid 1px $warning-color;
+		align-items: baseline;
 
 		&:hover {
 			background: $warning-color;
