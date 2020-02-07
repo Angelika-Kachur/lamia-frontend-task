@@ -13,7 +13,7 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "mocha --exit",
     "sass": "sass --watch public/css/main.scss public/css/main.css"
   } 
