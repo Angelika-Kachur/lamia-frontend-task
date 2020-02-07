@@ -367,7 +367,7 @@ body {
 		border: solid 1px $primary-color;
 
 		&:hover {
-			background: $primary-color;
+			background: #6dbca1;
 		}
 
 		.icon {
@@ -379,7 +379,7 @@ body {
 		border: solid 1px $secondary-color;
 
 		&:hover {
-			background: $secondary-color;
+			background: #8db8ce;
 		}
 
 		.icon-pen-angled {
@@ -392,7 +392,7 @@ body {
 		align-items: baseline;
 
 		&:hover {
-			background: $warning-color;
+			background: #8b687b;
 		}
 	}
 	&--save {
@@ -402,7 +402,7 @@ body {
 		padding: 10px 20px;
 
 		&:hover {
-			background: $primary-color;
+			background: #6dbca1;
 		}
 	}
 }
@@ -471,6 +471,11 @@ body {
 		background: $warning-color;
 		border: solid 1px $gray-color;
 		border-radius: 50px;
+		transition: all ease .3s;
+
+		&:hover {
+			background: #8b687b;
+		}
 
 		@include for-phone-xs {
 			top: -35px;

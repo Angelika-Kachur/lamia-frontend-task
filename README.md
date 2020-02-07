@@ -10,3 +10,6 @@ Node.js for server part, JavaScript for UI, Sass to make styling faster, GoogleM
 - yarn test (to test app)
 - yarn sass (to convert scss to css)
 - open in your browser localhost:9000
+
+
+![](placesDemo.gif)

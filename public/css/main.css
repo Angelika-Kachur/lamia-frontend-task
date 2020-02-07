@@ -333,7 +333,7 @@ body {
   border: solid 1px #68A691;
 }
 .btn--add-place:hover {
-  background: #68A691;
+  background: #6dbca1;
 }
 .btn--add-place .icon {
   font-size: 28px;
@@ -343,7 +343,7 @@ body {
   border: solid 1px #9DB4C0;
 }
 .btn--edit-place:hover {
-  background: #9DB4C0;
+  background: #8db8ce;
 }
 .btn--edit-place .icon-pen-angled {
   font-size: 23px;
@@ -354,7 +354,7 @@ body {
   align-items: baseline;
 }
 .btn--delete-place:hover {
-  background: #694F5D;
+  background: #8b687b;
 }
 .btn--save {
   margin: 0 auto;
@@ -363,7 +363,7 @@ body {
   padding: 10px 20px;
 }
 .btn--save:hover {
-  background: #68A691;
+  background: #6dbca1;
 }
 
 .edit-place__box {
@@ -424,6 +424,10 @@ body {
   background: #694F5D;
   border: solid 1px #ccc;
   border-radius: 50px;
+  transition: all ease 0.3s;
+}
+.popup .close-popup:hover {
+  background: #8b687b;
 }
 @media (max-width: 500px) {
   .popup .close-popup {
