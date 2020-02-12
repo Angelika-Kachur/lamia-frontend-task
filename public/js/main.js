@@ -326,7 +326,7 @@ function hidePopup() {
     elemPopup.classList.remove('popup--open');
 }
 
-doc.addEventListener('click', function() {
+doc.addEventListener('mousedown', function() {
     if (event.target.classList.contains('close-popup')) {
         hidePopup();
     } else if (event.target.classList.contains('popup')) {
